@@ -1,11 +1,9 @@
 import os
-from dotenv import load_dotenv
-from flask import Flask
-app = Flask(__name__)
+from main import create_app
 
-load_dotenv()
+app = create_app()
 
-port = os.getenv("PORT")
+app.app_context().push()
 
 if __name__ == "__main__":
-    app.run(debug = True, port = port)
+    app.run(debug = True, port = os.getenv("PORT"))
