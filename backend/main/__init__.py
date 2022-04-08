@@ -7,9 +7,11 @@ import main.resources as resource
 
 api = Api()
 
+# Metodo que inicializara todos los modulos y variables
 def create_app():
-    #inicializar Flask
+    #Inicializar Flask
     app= Flask(__name__)
+
     #Cargar variables de entorno
     load_dotenv()
     api.add_resource(resource.PoemsResource, '/poems')
@@ -18,8 +20,10 @@ def create_app():
     api.add_resource(resource.UserResource, '/user/<id>')
     api.add_resource(resource.MarksResource, '/marks')
     api.add_resource(resource.MarkResource, '/mark/<id>')
-    #Aqui se inicializaran el resto de los m
-    #retornar aplicaciion inicializada
+    
+    #Iniciar el resto de las extensiones.
     api.init_app(app)
+
+    #Retornar aplicación inicializada
     return app
 
