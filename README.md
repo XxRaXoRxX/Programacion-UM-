@@ -8,3 +8,5 @@ Todo los proyectos y trabajos prácticos relacionados a Programación I de la Un
   - Crear los recursos necesarios para la aplicación
   - Crear la rutas para los accesos a recursos configurando códigos de respuesta y mensajes
   - Subir el archivo exportado de insomnia con todos los métodos cargados
+
+Prof. Andrea Navarro: @AndreaNavarroMoreno
