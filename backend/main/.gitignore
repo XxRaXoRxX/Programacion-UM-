@@ -110,9 +110,12 @@ ENV/
 env.bak/
 venv.bak/
 bin/
+<<<<<<< HEAD
 lib64/
 **/lib64/
 .cfg
+=======
+>>>>>>> cf616dc640792817b620a3cee17a9b87b45fa97d
 
 # Spyder project settings
 .spyderproject

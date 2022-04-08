@@ -1,3 +1,7 @@
 Flask
 python-dotenv
+<<<<<<< HEAD
 flask-restful
+=======
+flask-restful
+>>>>>>> cf616dc640792817b620a3cee17a9b87b45fa97d
