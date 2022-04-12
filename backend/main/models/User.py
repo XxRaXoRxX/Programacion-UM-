@@ -1,4 +1,5 @@
 from .. import db
+from datetime import datetime
 
 class User(db.Model):
 
@@ -7,7 +8,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
     rol = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False, default=datetime.now())
 
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
