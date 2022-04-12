@@ -2,7 +2,7 @@ import os
 import sys
 import resource
 from flask import Flask
-from dotenv import find_dotenv, load_dotenv
+from dotenv import load_dotenv
 from flask_restful import Api
 import main.resources as resource
 
@@ -14,8 +14,7 @@ def create_app():
     app = Flask(__name__)
     
     #Cargar variables de entorno
-    path = sys.path[0]
-    load_dotenv(path) 		#TODO: Por alguna razón esto no esta funcionando y no me trae el PORT dentro del .env. Consultar con profe
+    load_dotenv()
     api.add_resource(resource.PoemsResource, '/poems')
     api.add_resource(resource.PoemResource, '/poem/<id>')
     api.add_resource(resource.UsersResource, '/users')
