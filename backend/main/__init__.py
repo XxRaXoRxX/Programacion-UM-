@@ -4,7 +4,6 @@ import resource
 from flask import Flask
 from dotenv import load_dotenv
 from flask_restful import Api
-import main.resources as resource
 from flask_sqlalchemy import SQLAlchemy
 
 #Inicializar flask
@@ -23,6 +22,7 @@ def create_app():
 
     # Data Base
     #Si no existe el archivo de base de datos crearlo (solo válido si se utiliza SQLite)
+    print(os.getenv('DATABASE_PATH'))
     if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
 
@@ -35,6 +35,9 @@ def create_app():
     # Iniciamos la base de datos.
     db.init_app(app)
     # Data Base
+
+    #Importamos main.resources luego de crear la base de datos.
+    import main.resources as resource
     
     #Cargar variables de entorno
     api.add_resource(resource.PoemsResource, '/poems')

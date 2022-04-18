@@ -1,5 +1,7 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from .. import db
+from main.models import MarkModel
 
 #Diccionario de prueba
 MARKS = {
@@ -11,28 +13,26 @@ MARKS = {
 class Mark(Resource):
     #Obtener una Calificacion
     def get(self, id):
-        if int(id) in MARKS:
-            return MARKS[int(id)]
-        return '', 404
+        mark = db.session.query(MarkModel).get_or_404(id)
+        return mark.to_json()
     
     #Eliminar una calificacion
     def delete(self, id):
-        if int(id) in MARKS:
-            del MARKS[int(id)]
-            return '', 204
-        return '', 404
+        mark = db.session.query(MarkModel).get_or_404(id)
+        db.session.delete(mark)
+        db.session.commit()
+        return '', 204
 
 # Recurso Calificaciones
 class Marks(Resource):
     #Obtener Lista de Calificaciones
     def get(self):
-        if MARKS:
-            return MARKS
-        return '', 404
+        marks = db.session.query(MarkModel).all()
+        return jsonify([mark.to_json() for mark in marks])
 
     #Agregar una Calificacion a la lista 
     def post(self):
-        mark = request.get_json()
-        id = int(max(MARKS.keys())) + 1
-        MARKS[id] = mark
-        return MARKS[id], 201
+        mark = MarkModel.from_json(request.get_json)
+        db.session.add(mark)
+        db.session.commit()
+        return mark.to_json(), 201

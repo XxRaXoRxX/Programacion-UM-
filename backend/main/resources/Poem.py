@@ -1,5 +1,7 @@
 from flask_restful import Resource
-from flask import request
+from flask import request, jsonify
+from .. import db
+from main.models import PoemModel
 
 #Diccionario de prueba
 POEMS = {
@@ -11,29 +13,27 @@ POEMS = {
 class Poem(Resource):
     #Obtener un Poema
     def get(self, id):
-        if int(id) in POEMS:
-            return POEMS[int(id)]
-        return '', 404
+        poem = db.session.query(PoemModel).get_or_404(id)
+        return poem.to_json()
     
     #Eliminar un Poema
     def delete(self, id):
-        if int(id) in POEMS:
-            del POEMS[int(id)]
-            return '', 204
-        return '', 404
+        poem = db.session.query(PoemModel).get_or_404(id)
+        db.session.delete(poem)
+        db.session.commit()
+        return '', 204
 
             
 #Recurso Poemas
 class Poems(Resource):
     #Obtener Recurso
     def get(self):
-        if POEMS:
-            return POEMS
-        return '', 404
+        poems = db.session.query(PoemModel).all()
+        return jsonify([poem.to_json() for poem in poems])
     
     #Agregara un nuevo Poema a la lista
     def post(self):
-        poem = request.get_json()
-        id = int(max(POEMS.keys())) + 1
-        POEMS[id] = poem
-        return POEMS[id], 201
+        poem = PoemModel.from_json(request.get_json)
+        db.session.add(poem)
+        db.session.commit()
+        return poem.to_json(), 201
