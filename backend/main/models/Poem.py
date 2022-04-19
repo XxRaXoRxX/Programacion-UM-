@@ -1,4 +1,3 @@
-from sqlite3 import Timestamp
 from .. import db
 from datetime import datetime
 
@@ -9,7 +8,7 @@ class Poem(db.Model):
     title = db.Column(db.String(100), nullable=False)
     userID = db.Column(db.Integer, nullable=False) # ToDo: Ver si hacer esto clave foranea.
     body = db.Column(db.String(100), nullable=False)
-    created_at = db.Column(default = Timestamp.now(), nullable = False) # ToDo: Ver como obtener el datetime desde la base de datos
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now()) # ToDo: Ver como obtener el datetime desde la base de datos
 
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
