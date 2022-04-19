@@ -132,3 +132,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 **/__pycache_
+
+#Base de Datos
+**/include
