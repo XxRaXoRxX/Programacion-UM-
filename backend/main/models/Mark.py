@@ -5,9 +5,15 @@ class Mark(db.Model):
     # Generamos las columnas de Usuario
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer, nullable=False)
-    comment = db.Column(db.String(100), nullable=False) 
-    userID = db.Column(db.Integer, nullable=False) # ToDo: Ver si hacer esto clave foranea.
-    poemID = db.Column(db.Integer, nullable=False) # ToDo: Ver si hacer esto clave foranea.
+    comment = db.Column(db.String(100), nullable=True)
+
+    # Crear Clave Foranea 
+    userID = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+    poemID = db.Column(db.Integer, db.ForeignKey("poem.id"), nullable=False)
+
+    # Relación
+    user = db.relationship("User", back_populates="marks", uselist=False, single_parent=True)
+    poem = db.relationship("Poem", back_populates="marks", uselist=False, single_parent=True)
 
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
@@ -19,8 +25,8 @@ class Mark(db.Model):
             'id': self.id,
             'score': int(self.score),
             'comment': str(self.comment),
-            'userID': str(self.userID),
-            'poemID': str(self.poemID),
+            'user': self.user.to_json(),
+            'poem': self.poem.to_json()
         }
         return mark_json
     
@@ -34,5 +40,5 @@ class Mark(db.Model):
         return Mark(id=id,
                     score=score,
                     userID=userID,
-                    poemID=poemID,
+                    poemID=poemID
                     )

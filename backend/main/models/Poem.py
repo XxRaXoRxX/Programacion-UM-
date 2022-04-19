@@ -6,22 +6,30 @@ class Poem(db.Model):
     # Generamos las columnas de Usuario
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
-    userID = db.Column(db.Integer, nullable=False) # ToDo: Ver si hacer esto clave foranea.
+    #userID = db.Column(db.Integer, nullable=False) # ToDo: Ver si hacer esto clave foranea.
     body = db.Column(db.String(100), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now()) # ToDo: Ver como obtener el datetime desde la base de datos
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+    # Crear Clave Foranea
+    userID = db.Column(db.Integer, db.ForeignKey("user.id"), nullable=False)
+
+    # Relación
+    user = db.relationship("User", back_populates="poems", uselist=False, single_parent=True)
+    marks = db.relationship("Mark", back_populates="poem", cascade="all, delete-orphan")
 
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
-        return f"<Poem {self.title} {self.userID} {self.body} {self.created_at} >"
+        return f"<Poem {self.id} {self.title} {self.userID} {self.body} {self.created_at}>"
 
     #Convertir objeto en JSON
     def to_json(self):
         poem_json = {
-            'id': self.id,
+            'id': int(self.id),
             'title': str(self.title),
-            'userID': int(self.userID),
-            'body': str(self.body),
-            'created_at': str(self.created_at),
+            'user': self.user.to_json(),
+            'body': str(self.body)
+            #'marks': [mark.to_json() for mark in self.marks]
+            #'created_at': str(self.created_at)
         }
         return poem_json
     
@@ -36,6 +44,6 @@ class Poem(db.Model):
         return Poem(id=id,
                     title=title,
                     userID=userID,
-                    body=body,
-                    created_at=created_at
+                    body=body
+                    #created_at=created_at
                     )

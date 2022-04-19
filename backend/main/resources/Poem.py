@@ -33,7 +33,7 @@ class Poems(Resource):
     
     #Agregara un nuevo Poema a la lista
     def post(self):
-        poem = PoemModel.from_json(request.get_json)
+        poem = PoemModel.from_json(request.get_json())
         db.session.add(poem)
         db.session.commit()
         return poem.to_json(), 201

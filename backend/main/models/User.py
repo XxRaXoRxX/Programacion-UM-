@@ -9,6 +9,10 @@ class User(db.Model):
     rol = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
 
+    # Relaciones
+    poems = db.relationship("Poem", back_populates="user", cascade="all, delete-orphan")
+    marks = db.relationship("Mark", back_populates="user", cascade="all, delete-orphan")
+
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
         return f"<Professor: {self.name} {self.password} {self.rol} {self.email} >"
@@ -17,10 +21,12 @@ class User(db.Model):
     def to_json(self):
         user_json = {
             'id': self.id,
-            'name': str(self.name),
-            'password': str(self.password),
-            'rol': str(self.rol),
-            'email': str(self.email),
+            'name': str(self.name)
+            #'poems': [poem.to_json() for poem in self.poems],
+            #'marks': [mark.to_json() for mark in self.marks]
+            #'password': str(self.password),
+            #'rol': str(self.rol),
+            #'email': str(self.email),
         }
         return user_json
     

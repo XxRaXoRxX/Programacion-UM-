@@ -42,7 +42,7 @@ class Users(Resource):
 
     #Agregar un nuevo Usuario en la lista
     def post(self):
-        user = UserModel.from_json(request.get_json)
+        user = UserModel.from_json(request.get_json())
         db.session.add(user)
         db.session.commit()
         return user.to_json(), 201

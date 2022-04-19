@@ -32,7 +32,7 @@ class Marks(Resource):
 
     #Agregar una Calificacion a la lista 
     def post(self):
-        mark = MarkModel.from_json(request.get_json)
+        mark = MarkModel.from_json(request.get_json())
         db.session.add(mark)
         db.session.commit()
         return mark.to_json(), 201
