@@ -3,12 +3,6 @@ from flask import request, jsonify
 from .. import db
 from main.models import UserModel
 
-#Diccionario de prueba
-USERS = {
-    1: {'name': 'Roberto', 'surname': 'Martinez'},
-    2: {'name': 'Juan', 'surname': 'Sanchez'},
-}
-
 #Recurso Usuario
 class User(Resource):
     #Obtener un Usuario

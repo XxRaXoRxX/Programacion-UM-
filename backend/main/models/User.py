@@ -21,7 +21,9 @@ class User(db.Model):
     def to_json(self):
         user_json = {
             'id': self.id,
-            'name': str(self.name)
+            'name': str(self.name),
+            'poemsAmount': len(self.poems),
+            'ratingAmount': len(self.marks)
             #'poems': [poem.to_json() for poem in self.poems],
             #'marks': [mark.to_json() for mark in self.marks]
             #'password': str(self.password),
@@ -44,3 +46,4 @@ class User(db.Model):
                     rol=rol,
                     email=email
                     )
+

@@ -27,12 +27,13 @@ class Poem(db.Model):
             'id': int(self.id),
             'title': str(self.title),
             'user': self.user.to_json(),
-            'body': str(self.body)
+            'body': str(self.body),
+            "marksAvrg": self.__averageMarks(),
             #'marks': [mark.to_json() for mark in self.marks]
-            #'created_at': str(self.created_at)
+            'created_at': str(self.created_at)
         }
         return poem_json
-    
+
     @staticmethod
     #Convertir JSON a objeto
     def from_json(poem_json):
@@ -47,3 +48,19 @@ class Poem(db.Model):
                     body=body
                     #created_at=created_at
                     )
+
+    # Funciones de Utilidad
+    def __averageMarks(self):
+        """
+        Devuelve el Promedio de las calificaciones.
+        """
+        #Si marks es vacio devuelve cero.
+        if len(self.marks) == 0:
+            return 0
+        else:
+            score = 0
+            total = 0
+            for mark in self.marks:
+                score += mark.score
+                total += 1
+            return (score / total)

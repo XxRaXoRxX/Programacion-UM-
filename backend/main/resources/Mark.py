@@ -3,12 +3,6 @@ from flask import request, jsonify
 from .. import db
 from main.models import MarkModel
 
-#Diccionario de prueba
-MARKS = {
-    1: {'mark': '5 estrellas'},
-    2: {'mark': '3 estrellas'},
-}
-
 # Recurso Calificacion
 class Mark(Resource):
     #Obtener una Calificacion
