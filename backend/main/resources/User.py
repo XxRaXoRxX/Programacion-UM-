@@ -44,14 +44,15 @@ class Users(Resource):
                 # Cantidad de elementos que queres que te traiga por pagina.
                 if key == "perpage":
                     perpage = int(value)
-                # Pagina actual que se encuentra el usuario.
+                # Traer la lista por nombre especifico.
                 if key == "name":
                     users = users.filter(UserModel.name.like("%" + value + "%"))
-                # Ordenar toda la tabla de poemas ordenados por:
+                # Ordenar toda la tabla de usuarios ordenados por:
                 if key == "sort_by":
-                    # Ordenado por tiempo
+                    # Ordenado por nombre ascendente
                     if value == "name":
                         users = users.order_by(UserModel.name)
+                    # Ordenado por nombre descendente
                     if value == "name[desc]":
                         users = users.order_by(UserModel.name.desc())
                 

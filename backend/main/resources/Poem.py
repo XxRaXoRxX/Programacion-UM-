@@ -56,6 +56,9 @@ class Poems(Resource):
                 # Traer poemas por nombre de usuario.
                 if key == "username":
                     poems = poems.filter(PoemModel.user.has(UserModel.username.like("%" + value + "%")))
+                # Traer poemas por rating
+                if key == "rating":
+                    poems = poems.outerjoin((PoemModel.marks).group_by(PoemModel.id).order_by(func.avg(MarkModel.score) == value))
                 # Ordenar toda la tabla de poemas ordenados por:
                 if key == "sort_by":
                     # Ordenado por tiempo
