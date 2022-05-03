@@ -31,8 +31,33 @@ class User(Resource):
 class Users(Resource):
     #Obtener Lista de Usuarios
     def get(self):
-        users = db.session.query(UserModel).all()
-        return jsonify([user.to_json() for user in users])
+        # En caso de que el usuario no especifique pagina.
+        page = 1
+
+        users = db.session.query(UserModel)
+        if request.get_json():
+            filters = request.get_json().items()
+            for key, value in filters:
+                # Pagina actual que se encuentra el usuario.
+                if key == "page":
+                    page = int(value)
+                # Cantidad de elementos que queres que te traiga por pagina.
+                if key == "perpage":
+                    perpage = int(value)
+                # Pagina actual que se encuentra el usuario.
+                if key == "name":
+                    users = users.filter(UserModel.name.like("%" + value + "%"))
+                # Ordenar toda la tabla de poemas ordenados por:
+                if key == "sort_by":
+                    # Ordenado por tiempo
+                    if value == "name":
+                        users = users.order_by(UserModel.name)
+                    if value == "name[desc]":
+                        users = users.order_by(UserModel.name.desc())
+                
+        users = users.paginate(page, perpage, True, 10)
+        return jsonify({"users":[user.to_json() for user in users.items],
+        "total": users.total, "pages": users.pages, "page": page})
 
     #Agregar un nuevo Usuario en la lista
     def post(self):
