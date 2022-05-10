@@ -1,4 +1,5 @@
 from datetime import datetime
+from itertools import count
 from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
@@ -24,14 +25,15 @@ class Poem(Resource):
         #Obtener claims de adentro del JWT
         claims = get_jwt()
 
+        poem = db.session.query(PoemModel).get_or_404(id)
+
         #Verifico si el id del usuario concuerda con el que realiza el deleteo o si es admin.
-        if (claims['id'] == id or claims['role'] == "admin"):
-            poem = db.session.query(PoemModel).get_or_404(id)
+        if (claims['id'] == poem.userID or claims['role'] == "admin"):
             db.session.delete(poem)
             db.session.commit()
-            return '', 204 #Elemento eliminado correctamente.
+            return 'Elemento eliminado', 204 #Elemento eliminado correctamente.
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
             
 #Recurso Poemas
@@ -39,9 +41,6 @@ class Poems(Resource):
     #Obtener Recurso
     @jwt_required(optional=True) #Requisito para todos los usuarios tanto con token como no.
     def get(self):
-
-        # En caso de que el usuario no especifique pagina.
-        page = 1
 
         #Obtener claims de adentro del JWT
         claims = get_jwt()
@@ -51,9 +50,9 @@ class Poems(Resource):
             return self.ShowPoemsWithoutToken()
 
         if (claims['role'] == "user" or "admin"):
-            return self.ShowPoemsWithToken()
+            return self.ShowPoemsWithToken(userID = claims['id'])
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
     
     #Agregara un nuevo Poema a la lista
     @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
@@ -64,18 +63,29 @@ class Poems(Resource):
 
         #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
         if (claims['role'] == "user" or "admin"):
-            poem = PoemModel.from_json(request.get_json())
-            db.session.add(poem)
-            db.session.commit()
-            return poem.to_json(), 201
+            # Me traigo el usuario por el id.
+            user = db.session.query(UserModel).get_or_404(claims['id'])
+
+            # Condición para poder publicar su primer poema
+            if (len(user.poems) == 0 or len(user.marks)/len(user.poems) >= 5):
+                poem = PoemModel.from_json(request.get_json())
+                db.session.add(poem)
+                db.session.commit()
+                return poem.to_json(), 201
+            else:
+                return 'No cumple las condiciones', 404 #Error al intentar publicar y no cumplir la condición de poemas publicados.
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
 
     # Utils functions.
 
     # Mostrar poemas con ordenamiento para poetas y admines.
-    def ShowPoemsWithToken():
+    def ShowPoemsWithoutToken(self):
+        
+        # En caso de que el usuario no especifique pagina.
+        page = 1
+
         poems = db.session.query(PoemModel)
         if request.get_json():
             filters = request.get_json().items()
@@ -124,9 +134,14 @@ class Poems(Resource):
         return jsonify({"poems":[poem.to_json() for poem in poems.items],
         "total": poems.total, "pages": poems.pages, "page": page})
 
-    # Mostrar poemas con ordenamiento para poetas y admines.
-    def ShowPoemsWithoutToken():
-        poems = db.session.query(PoemModel)
+    def ShowPoemsWithToken(self, userID):
+
+        # En caso de que el usuario no especifique pagina.
+        page = 1
+
+        # Me traigo los poemas que no publico el usuario y ordenado por calificaciones.
+        poems = db.session.query(PoemModel).filter(PoemModel.userID != int(userID)).order_by(PoemModel.created_at).outerjoin(PoemModel.marks).group_by(PoemModel.id).order_by(func.count(MarkModel.score))
+
         if request.get_json():
             filters = request.get_json().items()
             for key, value in filters:

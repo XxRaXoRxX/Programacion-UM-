@@ -8,18 +8,17 @@ from main.auth.decorators import admin_required
 #Recurso Usuario
 class User(Resource):
     #Obtener un Usuario
-    #@jwt_requiered()
     @jwt_required(optional=True) #Requisito para todos los usuarios tanto con token como no.
     def get(self, id):
 
         #Obtener claims de adentro del JWT
         claims = get_jwt()
 
+        user = db.session.query(UserModel).get_or_404(id)
+
         #Verifico si no tiene token, devuelvo el json para un usuario no registrado.
         if (not claims):
             return user.to_json()
-
-        user = db.session.query(UserModel).get_or_404(id)
 
         #Verificar que el rol sea admin y devuelvo el mail, sino devuelvo normal para el user.
         if (claims['role'] == "admin"):
@@ -44,7 +43,7 @@ class User(Resource):
             db.session.commit()
             return '', 204 #Elemento eliminado correctamente.
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
     #Modificar un usuario
     @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
@@ -63,7 +62,7 @@ class User(Resource):
             db.session.commit()
             return user.to_json(), 201
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
 #Recurso Usuarios
 class Users(Resource):

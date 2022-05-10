@@ -27,7 +27,7 @@ class Mark(Resource):
             db.session.commit()
             return '', 204 #Elemento eliminado correctamente.
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
 # Recurso Calificaciones
 class Marks(Resource):
@@ -51,4 +51,4 @@ class Marks(Resource):
             db.session.commit()
             return mark.to_json(), 201 #Finaliza correctamente la operación
         else:
-            return '', 401 #La solicitud no incluye información de autenticación
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
