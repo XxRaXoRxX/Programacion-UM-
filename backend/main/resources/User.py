@@ -9,16 +9,17 @@ from main.auth.decorators import admin_required
 class User(Resource):
     #Obtener un Usuario
     #@jwt_requiered()
-    @jwt_required(optional=True) #Requisito para todos los usuarios tanto con toquen como no.
+    @jwt_required(optional=True) #Requisito para todos los usuarios tanto con token como no.
     def get(self, id):
-        user = db.session.query(UserModel).get_or_404(id)
-        
+
         #Obtener claims de adentro del JWT
         claims = get_jwt()
 
         #Verifico si no tiene token, devuelvo el json para un usuario no registrado.
         if (not claims):
             return user.to_json()
+
+        user = db.session.query(UserModel).get_or_404(id)
 
         #Verificar que el rol sea admin y devuelvo el mail, sino devuelvo normal para el user.
         if (claims['role'] == "admin"):
@@ -30,28 +31,44 @@ class User(Resource):
             
     
     #Eliminar un Usuario
-    @admin_required #Requisito de admin para ejecutar esta función
+    @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
     def delete(self, id):
-        user = db.session.query(UserModel).get_or_404(id)
-        db.session.delete(user)
-        db.session.commit()
-        return '', 204
+
+        #Obtener claims de adentro del JWT
+        claims = get_jwt()
+
+        #Verifico si el id del usuario concuerda con el que realiza el deleteo o si es admin.
+        if (claims['id'] == id or claims['role'] == "admin"):
+            user = db.session.query(UserModel).get_or_404(id)
+            db.session.delete(user)
+            db.session.commit()
+            return '', 204 #Elemento eliminado correctamente.
+        else:
+            return '', 401 #La solicitud no incluye información de autenticación
 
     #Modificar un usuario
-    @jwt_required()
+    @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
     def put(self, id):
-        user = db.session.query(UserModel).get_or_404(id)
-        data = request.get_json().items()
-        for key, value in data:
-            setattr(user, key, value)
-        db.session.add(user)
-        db.session.commit()
-        return user.to_json(), 201
+
+        #Obtener claims de adentro del JWT
+        claims = get_jwt()
+
+        #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
+        if (claims['id'] == id or claims['role'] == "admin"):
+            user = db.session.query(UserModel).get_or_404(id)
+            data = request.get_json().items()
+            for key, value in data:
+                setattr(user, key, value)
+            db.session.add(user)
+            db.session.commit()
+            return user.to_json(), 201
+        else:
+            return '', 401 #La solicitud no incluye información de autenticación
 
 #Recurso Usuarios
 class Users(Resource):
     #Obtener Lista de Usuarios
-    @admin_required
+    @admin_required #Solo admines pueden acceder.
     def get(self):
         # En caso de que el usuario no especifique pagina.
         page = 1
@@ -82,7 +99,7 @@ class Users(Resource):
         return jsonify({"users":[user.to_json() for user in users.items],
         "total": users.total, "pages": users.pages, "page": page})
 
-    @admin_required
+    @admin_required #Solo admines pueden acceder.
     #Agregar un nuevo Usuario en la lista
     def post(self):
         user = UserModel.from_json(request.get_json())
