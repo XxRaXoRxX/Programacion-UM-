@@ -53,14 +53,14 @@ class User(Resource):
         claims = get_jwt()
 
         #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
-        if (claims['id'] == id or claims['role'] == "admin"):
+        if (claims['id'] == id): #or claims['role'] == "admin"):
             user = db.session.query(UserModel).get_or_404(id)
             data = request.get_json().items()
             for key, value in data:
                 setattr(user, key, value)
             db.session.add(user)
             db.session.commit()
-            return user.to_json(), 201
+            return user.to_json_user(), 201
         else:
             return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 

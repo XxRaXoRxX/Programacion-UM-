@@ -21,14 +21,40 @@ class Poem(db.Model):
     def __repr__(self):
         return f"<Poem {self.id} {self.title} {self.userID} {self.body} {self.created_at}>"
 
-    #Convertir objeto en JSON
+    #Convertir objeto en JSON. Visual para no usuarios
     def to_json(self):
         poem_json = {
             'id': int(self.id),
             'title': str(self.title),
             'user': self.user.to_json(),
             'body': str(self.body),
-            "marksAvrg": self.__averageMarks(),
+            'marksAvrg': self.__averageMarks(),
+            #'marks': [mark.to_json() for mark in self.marks]
+            'created_at': str(self.created_at)
+        }
+        return poem_json
+
+    #Convertir objeto en JSON. Visual para usuarios
+    def to_json_user(self):
+        poem_json = {
+            'id': int(self.id),
+            'title': str(self.title),
+            'user': self.user.to_json_user(),
+            'body': str(self.body),
+            'marksAvrg': self.__averageMarks(),
+            #'marks': [mark.to_json() for mark in self.marks]
+            'created_at': str(self.created_at)
+        }
+        return poem_json
+
+    #Convertir objeto en JSON. Visual para admin
+    def to_json_admin(self):
+        poem_json = {
+            'id': int(self.id),
+            'title': str(self.title),
+            'user': self.user.to_json_admin(),
+            'body': str(self.body),
+            'marksAvrg': self.__averageMarks(),
             #'marks': [mark.to_json() for mark in self.marks]
             'created_at': str(self.created_at)
         }

@@ -19,7 +19,7 @@ class Mark(db.Model):
     def __repr__(self):
         return f"<Mark {self.score} {self.comment} {self.userID} {self.poemID} >"
 
-    #Convertir objeto en JSON
+    #Convertir objeto en JSON. Visual para no usuarios
     def to_json(self):
         mark_json = {
             'id': self.id,
@@ -29,16 +29,40 @@ class Mark(db.Model):
             'poem': self.poem.to_json()
         }
         return mark_json
+
+    #Convertir objeto en JSON. Visual para usuarios
+    def to_json_user(self):
+        mark_json = {
+            'id': self.id,
+            'score': int(self.score),
+            'comment': str(self.comment),
+            'user': self.user.to_json_user(),
+            'poem': self.poem.to_json_user()
+        }
+        return mark_json
+
+    #Convertir objeto en JSON. Visual para admin
+    def to_json_admin(self):
+        mark_json = {
+            'id': self.id,
+            'score': int(self.score),
+            'comment': str(self.comment),
+            'user': self.user.to_json_admin(),
+            'poem': self.poem.to_json_admin()
+        }
+        return mark_json
     
     @staticmethod
     #Convertir JSON a objeto
     def from_json(mark_json):
         id = mark_json.get('id')
         score = mark_json.get('score')
+        comment = mark_json.get('comment')
         userID = mark_json.get('userID')
         poemID = mark_json.get('poemID')
         return Mark(id=id,
                     score=score,
+                    comment=comment,
                     userID=userID,
                     poemID=poemID
                     )

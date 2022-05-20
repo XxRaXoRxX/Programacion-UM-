@@ -15,8 +15,23 @@ class Poem(Resource):
     #Obtener un Poema
     @jwt_required(optional=True) #Requisito para todos los usuarios tanto con token como no.
     def get(self, id):
+
+        #Obtener claims de adentro del JWT
+        claims = get_jwt()
+
         poem = db.session.query(PoemModel).get_or_404(id)
-        return poem.to_json()
+
+        #Verifico si no tiene token, devuelvo el json para un usuario no registrado.
+        if (not claims):
+            return poem.to_json()
+
+        #Verificar que el rol sea admin y devuelvo el mail, sino devuelvo normal para el user.
+        if (claims['role'] == "admin"):
+            return poem.to_json_admin()
+        elif (claims['role'] == "user"):
+            return poem.to_json_user()
+        else:
+            return poem.to_json()
     
     #Eliminar un Poema
     @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
@@ -32,6 +47,8 @@ class Poem(Resource):
             db.session.delete(poem)
             db.session.commit()
             return 'Elemento eliminado', 204 #Elemento eliminado correctamente.
+        elif (claims['id'] != poem.userID):
+            return 'No puede eliminar un poema ajeno', 404
         else:
             return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 
@@ -63,6 +80,11 @@ class Poems(Resource):
 
         #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
         if (claims['role'] == "user" or "admin"):
+
+            #Cancelar operacion en caso de que el id del request y del jwt sean diferentes
+            if (claims['id'] != request.get_json().get('userID')):
+                return 'El id de consulta no coincide con el de su cuenta', 404
+
             # Me traigo el usuario por el id.
             user = db.session.query(UserModel).get_or_404(claims['id'])
 
