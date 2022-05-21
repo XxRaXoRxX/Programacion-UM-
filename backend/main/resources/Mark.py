@@ -4,6 +4,7 @@ from .. import db
 from main.models import MarkModel
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from main.auth.decorators import admin_required
+from main.mail.functions import sendMail
 
 # Recurso Calificacion
 class Mark(Resource):
@@ -80,6 +81,10 @@ class Marks(Resource):
             mark = MarkModel.from_json(request.get_json())
             db.session.add(mark)
             db.session.commit()
+
+            #Envio de mail al creador del poema.
+            subject = "Calificación recibida en poema " + str(mark.poem.title)
+            email = sendMail(to = [mark.poem.user.email], subject = subject, template = "mark", mark = mark)
             return mark.to_json(), 201 #Finaliza correctamente la operación
         else:
             return 'No tiene rol', 403 #La solicitud no incluye información de autenticación

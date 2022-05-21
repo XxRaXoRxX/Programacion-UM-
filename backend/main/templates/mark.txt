@@ -1,0 +1,5 @@
+Hola {{mark.poem.user.name}}, has recibido una calificación en tu poema {{mark.poem.title}}!
+
+La calificación es del usuario {{mark.user.name}} con un puntaje de {{mark.score}}
+
+Entra en nuestra web para ver el comentario.
