@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Poem Online</title>
+  <meta charset="utf-8">
+ 	<!--Colocar el viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--Incluyo CSS para dar color a las columnas -->
+	<link rel="stylesheet" href="estilos.css">
+  	<!-- Incluir CDN CSS de Bootstrap-->
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container-fluid">
+    	<!-- Fila Superior -->
+    	<div class="row barraSuperior">
+    		<!-- Logo Poema -->
+    		<div class="col-sm-1">Logo</div>
+			<!-- Poem Online -->
+			<div class="col-sm-3">Logo text</div>
+			<!-- Centro Vacio -->
+			<div class="col-sm-6"></div>
+			<!-- Icono configuración -->
+			<div class="col-sm-1 btn-group">
+				<button class="btn btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+				  <font size="6">+</font>
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				  <li><a class="dropdown-item" href="#">Ver Usuario</a></li>
+				  <li><a class="dropdown-item" href="#">Configurar Usuario</a></li>
+				</ul>
+			</div>
+			<!-- Icono usuario -->
+			<div class="col-sm-1">Icono</div>
+    	</div>
+    	<!-- Fila de busqueda -->
+    	<div class="row cuerpo">
+    		    <!--Izquierda vacio -->
+    			<div class="col-sm-8"></div>
+				<!-- Busqueda fecha -->
+    			<div class="col-sm-2">
+					<button class="btn btn-outline-primary btn-sm" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+						<font size="4">Fecha</font>
+					</button>
+					<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<li><a class="dropdown-item" href="#">Ver Usuario</a></li>
+					</ul>
+				</div>
+    			<div class="col-sm-2"></div>
+    	</div>
+    	<!-- Fila -->
+    	<div class="row">
+    		    <!-- Cada columna ocupa la mitad del total -->
+    			<div class="col-md-6 pie"></div>
+    			<div class="col-md-6 pie"></div>
+    	</div>
+    </div>
+    <!-- Incluir CDN Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html>
