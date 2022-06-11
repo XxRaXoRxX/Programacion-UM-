@@ -1,52 +1,195 @@
-.barraSuperior div[class*="col"] /*nth-of-type(n): sirve para solo colocar este estilo solo al n dentro de la lista.*/
+
+/* ---------- Barras de Color ----------*/
+.barraSuperior /*nth-of-type(n): sirve para solo colocar este estilo solo al n dentro de la lista.*/
 {
-	background-color:#2c7df6;
-	min-height: 60px;
+	background-color:#00A3FF;
 }
-.cuerpo div[class*="col"]
-{
-	background-color:#ffffff;
-	min-height: 50px;
-}
+/* ---------- Barras de Color ----------*/
+
+/* ---------- Imagenes ----------*/
 .logo
 {
+	min-height:70%;
+	min-width:70%;
 	max-height:100%;
-	max-width:100%;
-}
-.section-2 div[class*="col"]:nth-of-type(3)
-{
-	background-color:#94cba1;
-}
-.section-3 div[class*="col"]:nth-of-type(1)
-{
-	background-color:#d5e3a5;
-}
-.section-3 div[class*="col"]:nth-of-type(2)
-{
-	background-color:#8ad7f1;
-}
-.section-4 div[class*="col"]:nth-of-type(1)
-{
-	background-color:#9c8ec3;
-}
-.section-4 div[class*="col"]:nth-of-type(2)
-{
-	background-color:#f1a2a7;
-}
-.section-5 div[class*="col"]:nth-of-type(1)
-{
-	background-color:#f8ebe5;
-}
-.section-5 div[class*="col"]:nth-of-type(2)
-{
-	background-color:#c3a3ba;
-}
-.section-5 div[class*="col"]:nth-of-type(3)
-{
-	background-color:#8caede;
-}
-.section-5 div[class*="col"]:nth-of-type(4)
-{
-	background-color:#bbdbc3;
+	max-width:100%
 }
 
+.userLogo
+{
+	min-height:50%;
+	min-width:50%;
+	max-height:70%;
+	max-width:70%;
+	border-radius: 10px;
+	box-shadow: 0px 2px 5px black
+}
+
+.star
+{
+	min-height:70%;
+	min-width:70%;
+	max-height:100%;
+	max-width:100%
+}
+/* ---------- Imagenes ----------*/
+
+/* ---------- Texto ----------*/
+.logoName
+{
+	font-family: "Fuggles";
+	color:#FFFFFF;
+	font-size: 60px;
+	text-shadow: 3px 1px 5px black;
+}
+
+.tituloPoema
+{
+	font-family: "Inter";
+	color:#000000a1;
+	font-size: 60px;
+	font-style: italic;
+}
+
+.config
+{
+	font-size: 30px;
+	font-style: oblique
+}
+/* ---------- Texto ----------*/
+
+/* ---------- Botones ----------*/
+/*- Boton "Publicar Poema" -*/
+.btn-primary {
+	font-size: 15px;
+	width: 150px;
+	color: #000000 !important;
+	background-color: #CFDFFF !important;
+	border-color: #CFDFFF !important;
+	border-radius: 10px !important
+}
+
+.btn-primary:hover {
+	font-size: 15px;
+	width: 150px;
+	color: #000000 !important;
+	background-color: #CFDFFF !important;
+	border-color: #CFDFFF !important;
+	border-radius: 10px !important
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton "Publicar Poema" -*/
+
+/*- Botones de filtros -*/
+.btn-secundary {
+	font-size: 15px;
+	width: 290px;
+	color: #000000 !important;
+	background-color: #CFDFFF !important;
+	border-color: #CFDFFF !important;
+	border-radius: 20px !important
+}
+
+.btn-secundary:hover {
+	font-size: 15px;
+	width: 290px;
+	color: #000000 !important;
+	background-color: #CFDFFF !important;
+	border-color: #CFDFFF !important;
+	border-radius: 20px !important
+}
+
+.btn-secundary:focus,
+.btn-secundary.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Botones de filtros -*/
+
+/*- Boton de Poema -*/
+.btn-success {
+	font-size: 15px;
+	width: 100%;
+	color: #000000 !important;
+	background-color: #EDFFF5 !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.btn-success:hover {
+	font-size: 15px;
+	width: 100%;
+	color: #000000 !important;
+	background-color: #a0ffcb  !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.btn-success:focus,
+.btn-success.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton de Poema -*/
+/* ---------- Botones ----------*/
+
+/* ---------- Estrella Calificación ----------*/
+.calificacion
+{
+	font-family: "Inter";
+	color:#000000;
+	font-size: 70px;
+	font-style: italic;
+}
+
+.container {
+	position: relative;
+	text-align: center;
+	color: white;
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 47%;
+	transform: translate(-50%, -50%);
+}
+/* ---------- Estrella Calificación ----------*/
+
+/* ---------- Paginación ----------*/
+.pagination > li > a
+{
+    background-color: white;
+    color: #000000;
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: #000000;
+    background-color: #CFDFFF;
+	font-weight: bold;
+    border-color: rgba(0, 0, 0, 0);
+}
+
+.pagination > .active > a
+{
+    color: white;
+    background-color: #CFDFFF !Important;
+    border: solid 1px #CFDFFF !Important;
+	text-decoration: underline;
+}
+
+.pagination > .active > a:hover
+{
+    background-color: #CFDFFF !Important;
+    border: solid 1px #CFDFFF;
+}
+/* ---------- Paginación ----------*/
