@@ -18,6 +18,9 @@
   	<!-- Incluir CDN CSS de Bootstrap-->
 	<!-- CSS only -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+	<!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href= "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
 </head>
 <body>
     <div class="container-fluid">
@@ -72,29 +75,29 @@
     	<div class="row mt-1 align-items-center">
 			<div class="col-sm-1"></div>
 			<div class="col-sm-4">
-				<button class="btn-secundary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "config">Filtrar por título</font>
+				<button class="btn-secundary btn-lg dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+					<font class = "config">Filtrar por título<i class="bi bi-caret-down" style = "font-size: 20px;"></i></font>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<form method="POST">
 						<li>
 							<div class="form-group">
-								<input type="text" name="titulo" id="texto" placeholder="Ingresar Tìtulo a Filtrar" class="form-control form-control-sm">
+								<input type="text" name="titulo" id="texto" placeholder="Ingresar Tìtulo a Filtrar" class="form-control">
 							</div>
 						</li>
 					</form>
 				</ul>
 			</div>
 			<div class="col-sm-4 align-self-center">
-				<button class="btn-secundary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "config">Filtrar por autor</font>
+				<button class="btn-secundary btn-lg dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+					<font class = "config">Filtrar por autor<i class="bi bi-caret-down" style = "font-size: 20px;"></i></font>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<li>
 						<form method="POST">
 							<li>
 								<div class="form-group">
-									<input type="text" name="titulo" id="texto" placeholder="Ingresar Autor a Filtrar" class="form-control form-control-sm">
+									<input type="text" name="titulo" id="texto" placeholder="Ingresar Autor a Filtrar" class="form-control">
 								</div>
 							</li>
 						</form>
@@ -102,8 +105,8 @@
 				</ul>
 			</div>
 			<div class="col-sm-3 align-self-center">
-				<button class="btn-secundary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "config">Filtrar por puntaje</font>
+				<button class="btn-secundary btn-lg dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+					<font class = "config">Filtrar por puntaje<i class="bi bi-caret-down" style = "font-size: 20px;"></i></font>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<li>
@@ -133,45 +136,7 @@
     	</div>
 
     	<!-- Fila Poema -->
-    	<div class="row mt-1">
-				<!-- Poema -->
-				<div class="col-sm-12">
-					<button type="button" class="btn-success float-end">
-						<div class="row">
-							<!-- Titulo Poema -->
-							<div class="col-sm-7 align-self-center">
-								<p class = "tituloPoema float-start">
-									<b>Titulo Poema</b>
-								</p>
-							</div>
-							<!-- Autor y Calificación -->
-							<div class="col-sm-5">
-								<div class="row">
-									<!-- Autor -->
-									<div class="col-sm-8 align-self-center">
-										<p class = "tituloPoema float-start">
-											Autor:
-										</p>
-										<p class = "tituloPoema float-start">
-											Nombre Apellido
-										</p>
-									</div>
-									<!-- Calificación -->
-									<div class="col-sm-4 align-self-center">
-										<div class="container">
-											<img class = "star" src="Stars.png" alt="Calificación">
-											<div class="centered calificacion">5</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</button>
-				</div>
-    	</div>
-
-		<!-- Fila Poema -->
-    	<div class="row mt-2">
+		<div class="row mt-2">
 			<!-- Poema -->
 			<div class="col-sm-12">
 				<button type="button" class="btn-success float-end">
@@ -187,18 +152,52 @@
 							<div class="row">
 								<!-- Autor -->
 								<div class="col-sm-8 align-self-center">
-									<p class = "tituloPoema float-start">
-										Autor:
-									</p>
-									<p class = "tituloPoema float-start">
+									<p class = "tituloPoema text-start">
+										Autor:<br>
 										Nombre Apellido
 									</p>
 								</div>
 								<!-- Calificación -->
 								<div class="col-sm-4 align-self-center">
 									<div class="container">
-										<img class = "star" src="Stars.png" alt="Calificación">
-										<div class="centered calificacion">5</div>
+										<img class = "estrellaMenu" src="Stars.png" alt="Calificación">
+										<div class="centered calificacionMenu">5</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</button>
+			</div>
+		</div>
+
+		<!-- Fila Poema -->
+		<div class="row mt-2">
+			<!-- Poema -->
+			<div class="col-sm-12">
+				<button type="button" class="btn-success float-end">
+					<div class="row">
+						<!-- Titulo Poema -->
+						<div class="col-sm-7 align-self-center">
+							<p class = "tituloPoema float-start">
+								<b>Titulo Poema</b>
+							</p>
+						</div>
+						<!-- Autor y Calificación -->
+						<div class="col-sm-5">
+							<div class="row">
+								<!-- Autor -->
+								<div class="col-sm-8 align-self-center">
+									<p class = "tituloPoema text-start">
+										Autor:<br>
+										Nombre Apellido
+									</p>
+								</div>
+								<!-- Calificación -->
+								<div class="col-sm-4 align-self-center">
+									<div class="container">
+										<img class = "estrellaMenu" src="Stars.png" alt="Calificación">
+										<div class="centered calificacionMenu">5</div>
 									</div>
 								</div>
 							</div>
@@ -225,18 +224,16 @@
 							<div class="row">
 								<!-- Autor -->
 								<div class="col-sm-8 align-self-center">
-									<p class = "tituloPoema float-start">
-										Autor:
-									</p>
-									<p class = "tituloPoema float-start">
+									<p class = "tituloPoema text-start">
+										Autor:<br>
 										Nombre Apellido
 									</p>
 								</div>
 								<!-- Calificación -->
 								<div class="col-sm-4 align-self-center">
 									<div class="container">
-										<img class = "star" src="Stars.png" alt="Calificación">
-										<div class="centered calificacion">5</div>
+										<img class = "estrellaMenu" src="Stars.png" alt="Calificación">
+										<div class="centered calificacionMenu">5</div>
 									</div>
 								</div>
 							</div>

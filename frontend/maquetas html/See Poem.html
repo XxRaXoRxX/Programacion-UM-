@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Poem Online</title>
+  <meta charset="utf-8">
+  	<!--Estilo de letra para el logo -->
+  	<link href='https://fonts.googleapis.com/css?family=Fuggles' rel='stylesheet'>
+
+	<!--Estilo de letra para los Títulos de poemas -->
+	<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+
+ 	<!--Colocar el viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--Incluyo CSS para dar color a las columnas -->
+	<link rel="stylesheet" href="estilos.css">
+	
+  	<!-- Incluir CDN CSS de Bootstrap-->
+	<!-- CSS only -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+
+	<!-- Bootstrap Font Icon CSS -->
+    <link rel="stylesheet" href= "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+</head>
+<body>
+    <div class="container-fluid">
+
+		<!-- Fila superior -->
+    	<div class="row barraSuperior align-items-center">
+			<!-- Fila izquierda -->
+    		<div class="col-sm-4">
+				<div class = "row align-self-center">
+					<!-- Logo Poema -->
+					<div class="col-sm-2">
+						<img class = "logo float-start" src="logo.png" alt="Logo">
+					</div>
+					<!-- Poem Online -->
+					<div class="col-sm-10">
+						<p class = "logoName float-start">
+							Poems Online
+						</p>
+					</div>
+				</div>
+			</div>
+			<!-- Espacio vacio -->
+			<div class="col-sm-4"></div>
+			<!-- Fila Derecha -->
+			<div class="col-sm-4">
+				<div class = "row align-items-center">
+					<!-- Publicar un Poema-->
+					<div class="col-sm-8">
+						<button type="button" class="btn-primary float-end">
+							Publicar Poema
+						</button>
+					</div>
+					<!-- Icono configuración -->
+					<div class="col-sm-2">
+						<button class="btn btn-lg dropdown-toggle float-end" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+							<font class = "config">+</font>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<li><a class="dropdown-item" href="#">Ver Usuario</a></li>
+							<li><a class="dropdown-item" href="#">Configurar Usuario</a></li>
+						</ul>
+					</div>
+					<!-- Icono usuario -->
+					<div class="col-sm-2">
+						<img class = "userLogo float-start" src="user.png" alt="User">
+					</div>
+				</div>
+			</div>
+    	</div>
+
+    	<!-- Titulo del poema, autor y Menu -->
+    	<div class="row mt-2 align-items-center text-center">
+			<!-- Titulo del poema -->
+			<div class="col-sm-6">
+				<p class = "tituloPoema float-start">
+					Título del Poema
+				</p>
+			</div>
+
+			<!-- Autor -->
+			<div class="col-sm-4">
+				<p class = "tituloPoema float-start" style="font-size: 50px;">
+					Autor: Nombre y Apellido
+				</p>
+			</div>
+
+			<!-- Menu -->
+			<div class="col-sm-2">
+				<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
+					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">
+						<span class="flechaCancelar float-start"><-</span>Menu
+					</p>
+				</button>
+			</div>
+    	</div>
+
+    	<!-- Cuerpo Poema-->
+    	<div class="row text-center">
+			<!-- Cuerpo del Poema -->
+			<div class="col-sm-8">
+				<div class="container cuerpoBox cuerpoPoema text-start float-start">
+					<p>
+						Cuerpo del Poema
+					</p>
+					<div class="bottom-left container">
+						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<div class="centeredComments calificacionMenu">5</div>
+					</div>
+				</div>
+			</div>
+			<!-- Comentarios -->
+			<div class="col-sm-4 overflow">
+
+				<!-- Comentario de Usuario -->
+				<div class="container comentarioBox comentariosPoema text-start mt-1">
+					<form method="POST">
+						<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" id="exampleFormControlTextarea1" rows="7" placeholder="Ingresar Comentario"></textarea>
+					</form>
+
+					<!-- Boton enviar comentario -->
+					<div class="bottom-left-user-send container">
+						<button class="btn-warning dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+							<i class="cuerpoPoema bi bi-check-lg"></i>
+						</button>
+					</div>
+
+					<!-- Boton calificación -->
+					<div class="bottom-left-user-mark container">
+						<button class="btn-info dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+							<img class = "estrellaComentarioUser" src="Stars.png" alt="Calificación">
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							<li>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									<label class="form-check-label" for="inlineRadio1">1</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									<label class="form-check-label" for="inlineRadio2">2</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									<label class="form-check-label" for="inlineRadio3">3</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+									<label class="form-check-label" for="inlineRadio4">4</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+									<label class="form-check-label" for="inlineRadio5">5</label>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Comentario -->
+				<div class="container comentarioBox comentariosPoema text-start mt-1">
+					<p>Nombre Apellido:<br> Comentario</p>
+					<div class="bottom-left container">
+						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<div class="centeredComments calificacionComentarios">5</div>
+					</div>
+				</div>
+
+				<!-- Comentario -->
+				<div class="container comentarioBox comentariosPoema text-start mt-1">
+					<p>Nombre Apellido:<br> Comentario</p>
+					<div class="bottom-left container">
+						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<div class="centeredComments calificacionComentarios">5</div>
+					</div>
+				</div>
+
+				<!-- Comentario -->
+				<div class="container comentarioBox comentariosPoema text-start mt-1">
+					<p>Nombre Apellido:<br> Comentario</p>
+					<div class="bottom-left container">
+						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<div class="centeredComments calificacionComentarios">5</div>
+					</div>
+				</div>
+
+			</div>
+    	</div>
+    </div>
+    <!-- Incluir CDN Jquery-->
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+  </body>
+</html>

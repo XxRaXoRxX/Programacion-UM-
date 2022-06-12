@@ -25,12 +25,54 @@
 	box-shadow: 0px 2px 5px black
 }
 
-.star
+.estrellaMenu
 {
 	min-height:70%;
 	min-width:70%;
 	max-height:100%;
 	max-width:100%
+}
+
+.estrellaComentarios
+{
+	min-height:5%;
+	min-width:5%;
+	max-height:15%;
+	max-width:15%
+}
+
+.estrellaComentarioUser
+{
+	max-height:100%;
+	max-width:100%
+}
+
+.cuerpoBox
+{
+	height: 700px;
+	width: 100%;
+	background-color: #ffffff;
+	border-color: #000000;
+	border-radius: 10px;
+	border: 1px solid;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.comentarioBox
+{
+	height: 25%;
+	width: 100%;
+	background-color: #D9D9D9;
+	border-color: #000000;
+	border-radius: 10px;
+	border: 1px solid;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.overflow
+{
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 /* ---------- Imagenes ----------*/
 
@@ -40,7 +82,7 @@
 	font-family: "Fuggles";
 	color:#FFFFFF;
 	font-size: 60px;
-	text-shadow: 3px 1px 5px black;
+	text-shadow: 3px 1px 5px black
 }
 
 .tituloPoema
@@ -48,7 +90,51 @@
 	font-family: "Inter";
 	color:#000000a1;
 	font-size: 60px;
+	font-style: italic
+}
+
+.cuerpoPoema
+{
+	color:#000000;
+	font-size: 40px;
+}
+
+.comentariosPoema
+{
+	color:#000000;
+	font-size: 20px;
+}
+
+.tituloConfig
+{
+	font-size: 50px;
+	font-weight: bold
+}
+
+.contenidoConfig
+{
+	font-family: "Inter";
+	font-size: 50px;
 	font-style: italic;
+	font-weight: bold;
+	color:#000000a1
+}
+
+.contenidoConfigWhite
+{
+	font-family: "Inter";
+	font-size: 50px;
+	font-style: italic;
+	font-weight: bold;
+	color:#ffffff;
+	vertical-align: middle
+}
+
+.flechaCancelar
+{
+	font-style: normal;
+	vertical-align: middle;
+	font-size: 50px
 }
 
 .config
@@ -56,13 +142,29 @@
 	font-size: 30px;
 	font-style: oblique
 }
+
+.calificacionMenu
+{
+	font-family: "Inter";
+	color:#000000;
+	font-size: 70px;
+	font-style: italic;
+}
+
+.calificacionComentarios
+{
+	font-family: "Inter";
+	color:#000000;
+	font-size: 20px;
+	font-style: italic;
+}
 /* ---------- Texto ----------*/
 
 /* ---------- Botones ----------*/
 /*- Boton "Publicar Poema" -*/
 .btn-primary {
-	font-size: 15px;
-	width: 150px;
+	font-size: 30px;
+	width: 250px;
 	color: #000000 !important;
 	background-color: #CFDFFF !important;
 	border-color: #CFDFFF !important;
@@ -70,8 +172,8 @@
 }
 
 .btn-primary:hover {
-	font-size: 15px;
-	width: 150px;
+	font-size: 30px;
+	width: 250px;
 	color: #000000 !important;
 	background-color: #CFDFFF !important;
 	border-color: #CFDFFF !important;
@@ -87,7 +189,7 @@
 /*- Botones de filtros -*/
 .btn-secundary {
 	font-size: 15px;
-	width: 290px;
+	width: 300px;
 	color: #000000 !important;
 	background-color: #CFDFFF !important;
 	border-color: #CFDFFF !important;
@@ -96,7 +198,7 @@
 
 .btn-secundary:hover {
 	font-size: 15px;
-	width: 290px;
+	width: 300px;
 	color: #000000 !important;
 	background-color: #CFDFFF !important;
 	border-color: #CFDFFF !important;
@@ -135,30 +237,163 @@
 	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
 }
 /*- Boton de Poema -*/
-/* ---------- Botones ----------*/
 
-/* ---------- Estrella Calificación ----------*/
-.calificacion
-{
-	font-family: "Inter";
-	color:#000000;
-	font-size: 70px;
-	font-style: italic;
+/*- Boton de Configuración Blanco -*/
+.btn-info {
+	font-size: 15px;
+	width: 100%;
+	color: #000000 !important;
+	background-color: #EDFFF5 !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
 }
 
-.container {
+.btn-info:hover {
+	font-size: 15px;
+	width: 100%;
+	color: #000000 !important;
+	background-color: #CFDFFF  !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.btn-info:focus,
+.btn-info.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton de Configuración Blanco -*/
+
+/*- Boton de Configuración Rojo -*/
+.btn-danger {
+	font-size: 15px;
+	width: 100%;
+	color: #ffffff !important;
+	background-color: #ff0000 !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.btn-danger:hover {
+	font-size: 15px;
+	width: 100%;
+	color: #ffffff !important;
+	background-color: #ff2727  !important;
+	border-color: #ffffff !important;
+	border-radius: 20px !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
+}
+
+.btn-danger:focus,
+.btn-danger.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton de Configuración Rojo -*/
+
+/*- Boton de Calificación -*/
+.btn-info {
+	width: 70px !important;
+	height: 70px !important;
+	color: #ffffff !important;
+	background-color: #ff0000c2 !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: none;
+	border: 0.5px, solid !important
+}
+
+.btn-info:hover {
+	width: 70px !important;
+	height: 70px !important;
+	color: #ffffff !important;
+	background-color: #ff0000bd  !important;
+	border-color: #ffffff !important;
+	border-radius: 20px !important;
+	box-shadow: none;
+	border: 0.5px, solid !important
+}
+
+.btn-info:focus,
+.btn-info.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton de Calificación -*/
+
+/*- Boton de Enviar Calificación -*/
+.btn-warning {
+	width: 70px !important;
+	height: 70px !important;
+	color: #ffffff !important;
+	background-color: #00FF00 !important;
+	border-color: #000000 !important;
+	border-radius: 20px !important;
+	box-shadow: none;
+	border: 0.5px, solid !important
+}
+
+.btn-warning:hover {
+	width: 70px !important;
+	height: 70px !important;
+	color: #ffffff !important;
+	background-color: #00FF00  !important;
+	border-color: #ffffff !important;
+	border-radius: 20px !important;
+	box-shadow: none;
+	border: 0.5px, solid !important
+}
+
+.btn-warning:focus,
+.btn-warning.focus {
+	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
+}
+/*- Boton de Enviar Calificación -*/
+/* ---------- Botones ----------*/
+
+/* ---------- Container ----------*/
+.container
+{
 	position: relative;
-	text-align: center;
-	color: white;
+	text-align: center
 }
 
 .centered {
 	position: absolute;
 	top: 50%;
-	left: 47%;
+	left: 48%;
 	transform: translate(-50%, -50%);
 }
-/* ---------- Estrella Calificación ----------*/
+
+.centeredComments {
+	position: absolute;
+	top: 50%;
+	left: 49.5%;
+	transform: translate(-50%, -50%);
+}
+
+.bottom-left 
+{
+	position: absolute;
+	bottom: -1%;
+	left: 43%;
+}
+
+.bottom-left-user-mark 
+{
+	position: absolute;
+	bottom: 5%;
+	left: 41%;
+}
+
+.bottom-left-user-send 
+{
+	position: absolute;
+	bottom: 55%;
+	left: 41%;
+}
+
+/* ---------- Container ----------*/
 
 /* ---------- Paginación ----------*/
 .pagination > li > a
@@ -182,14 +417,79 @@
 .pagination > .active > a
 {
     color: white;
-    background-color: #CFDFFF !Important;
-    border: solid 1px #CFDFFF !Important;
+    background-color: #CFDFFF !important;
+    border: solid 1px #CFDFFF !important;
 	text-decoration: underline;
 }
 
 .pagination > .active > a:hover
 {
-    background-color: #CFDFFF !Important;
+    background-color: #CFDFFF !important;
     border: solid 1px #CFDFFF;
 }
 /* ---------- Paginación ----------*/
+
+/* ---------- Formularios ----------*/
+/*- Formulario General -*/
+.form-control-lg:disabled 
+{
+	resize: none;
+	width: 100%;
+	height: 100%;
+	font-size: 45px;
+	background-color: #ffffff  !important;
+	border-color: #000000;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5);
+	border-radius: 20px !important
+}
+
+.form-control-lg:valid 
+{
+	resize: none;
+	width: 100%;
+	height: 100%;
+	font-size: 45px;
+	color:#000000 !important;
+	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5);
+	border-radius: 20px !important
+}
+
+.form-control-lg::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: rgb(0, 0, 0) !important;
+	opacity: 0.30; /* Firefox */
+}
+
+.form-control-lg:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: rgba(0, 0, 0, 0.300) !important;
+}
+
+.form-control-lg::-ms-input-placeholder { /* Microsoft Edge */
+	color: rgb(0, 0, 0.300) !important;
+}
+/*- Formulario General -*/
+
+/*- Formulario Comentario Usuario -*/
+.form-control-sm:valid 
+{
+	resize: none;
+	width: 85%;
+	height: 100%;
+	background-color: #ffffff  !important;
+	border-color: #000000;
+	border-radius: 20px !important
+}
+
+.form-control-sm::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: rgb(0, 0, 0) !important;
+	opacity: 1; /* Firefox */
+}
+
+.form-control-sm:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: rgba(0, 0, 0, 1) !important;
+}
+
+.form-controlg-sm::-ms-input-placeholder { /* Microsoft Edge */
+	color: rgb(0, 0, 1) !important;
+}
+/*- Formulario Cuerpo Poema -*/
+/* ---------- Formularios ----------*/
