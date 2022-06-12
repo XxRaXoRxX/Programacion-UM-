@@ -239,7 +239,7 @@
 /*- Boton de Poema -*/
 
 /*- Boton de Configuración Blanco -*/
-.btn-info {
+.btn-light {
 	font-size: 15px;
 	width: 100%;
 	color: #000000 !important;
@@ -249,7 +249,7 @@
 	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
 }
 
-.btn-info:hover {
+.btn-light:hover {
 	font-size: 15px;
 	width: 100%;
 	color: #000000 !important;
@@ -259,8 +259,8 @@
 	box-shadow: 4px 6px 8px rgba(0, 0, 0, 0.5)
 }
 
-.btn-info:focus,
-.btn-info.focus {
+.btn-light:focus,
+.btn-light.focus {
 	box-shadow: 0 0 0 .2rem rgba(0, 255, 255, 0.5)
 }
 /*- Boton de Configuración Blanco -*/
