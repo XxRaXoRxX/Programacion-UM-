@@ -1,9 +1,9 @@
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for, render_template
 
 #Crear Blueprint
-user = Blueprint('main', __name__, url_prefix='/')
+user = Blueprint('user', __name__, url_prefix='/user')
 
 # Ver información de usuario por id.
 @user.route('/view/<int:id>')
 def view(id):
-    return redirect(url_for('user_info.html'))
+    return render_template('user_info.html')

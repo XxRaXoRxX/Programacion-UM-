@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for
+from flask import Blueprint, redirect, url_for, render_template
 
 #Crear Blueprint
 main = Blueprint('main', __name__, url_prefix='/')
@@ -6,9 +6,9 @@ main = Blueprint('main', __name__, url_prefix='/')
 # Ruta menu principal con poemas
 @main.route('/')
 def index():
-    return redirect(url_for('main.html'))
+    return render_template('main.html')
 
 # Ruta menu principal con poemas
 @main.route('/login')
-def index():
-    return redirect(url_for('login.html'))
+def login():
+    return rrender_template('login.html')
