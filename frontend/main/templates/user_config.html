@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!--Incluyo CSS para dar color a las columnas -->
-	<link rel="stylesheet" href="estilos.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 	
   	<!-- Incluir CDN CSS de Bootstrap-->
 	<!-- CSS only -->
@@ -29,7 +29,7 @@
 				<div class = "row align-self-center">
 					<!-- Logo Poema -->
 					<div class="col-sm-2">
-						<img class = "logo float-start" src="logo.png" alt="Logo">
+						<img class = "logo float-start" src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
 					</div>
 					<!-- Poem Online -->
 					<div class="col-sm-10">
@@ -62,7 +62,7 @@
 					</div>
 					<!-- Icono usuario -->
 					<div class="col-sm-2">
-						<img class = "userLogo float-start" src="user.png" alt="User">
+						<img class = "userLogo float-start" src="{{url_for('static', filename='img/user.png')}}" alt="User">
 					</div>
 				</div>
 			</div>
@@ -72,12 +72,12 @@
     	<div class="row mt-2 align-items-center text-center">
 			<div class="col-sm-12">
 				<p class = "tituloConfig">
-					<b>Información de Usuario</b>
+					<b>Configurar Usuario</b>
 				</p>
 			</div>
     	</div>
 
-    	<!-- Nombre y Apellido -->
+    	<!-- Nombre y Apellido-->
     	<div class="row mt-2 text-center">
 			<!-- Texto -->
 			<div class="col-sm-4">
@@ -88,57 +88,33 @@
 			<!-- Formulario -->
 			<div class="col-sm-7">
 				<form method="POST">
-					<input class="form-control-lg text-center contenidoConfig float-start" type="text" value="Nombre Apellido" disabled>
+					<input class="form-control-lg text-center contenidoConfig float-start" type="text" name="Editar nick usuario" id="texto" placeholder="Nombre Apellido">
 				</form>
 			</div>
     	</div>
 
-		<!-- Email -->
-    	<div class="row mt-2 text-center">
-			<!-- Texto -->
-			<div class="col-sm-4">
-				<p class = "contenidoConfig float-end">
-					Email
-				</p>
+		<!-- Cambiar contraseña-->
+    	<div class="row mt-4 align-items-center">
+			<div class="col-sm-3"></div>
+			<!-- Boton -->
+			<div class="col-sm-6">
+				<button class="btn-light btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
+					<font class = "contenidoConfig">Cambiar Contraseña</font>
+				</button>
 			</div>
-			<!-- Formulario -->
-			<div class="col-sm-7">
-				<form method="POST">
-					<input class="form-control-lg text-center contenidoConfig float-start" type="text" value="email@email.com" disabled>
-				</form>
-			</div>
+			<div class="col-sm-3"></div>
     	</div>
 
-		<!-- Cantidad Poemas -->
-    	<div class="row mt-2 text-center">
-			<!-- Texto -->
-			<div class="col-sm-4">
-				<p class = "contenidoConfig float-end">
-					Cantidad de Poemas
-				</p>
+		<!-- Eliminar Cuenta-->
+    	<div class="row mt-4 align-items-center">
+			<div class="col-sm-3"></div>
+			<!-- Boton -->
+			<div class="col-sm-6">
+				<button class="btn-danger btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
+					<font class = "contenidoConfigWhite">Eliminar Cuenta</font>
+				</button>
 			</div>
-			<!-- Formulario -->
-			<div class="col-sm-7">
-				<form method="POST">
-					<input class="form-control-lg text-center contenidoConfig float-start" type="text" value="1" disabled>
-				</form>
-			</div>
-    	</div>
-
-		<!-- Cantidad Calificaciones -->
-    	<div class="row mt-2 text-center">
-			<!-- Texto -->
-			<div class="col-sm-4">
-				<p class = "contenidoConfig float-end" style="font-size:45px">
-					Cantidad de Calificaciones
-				</p>
-			</div>
-			<!-- Formulario -->
-			<div class="col-sm-7">
-				<form method="POST">
-					<input class="form-control-lg text-center contenidoConfig float-start" type="text" value="1" disabled>
-				</form>
-			</div>
+			<div class="col-sm-3"></div>
     	</div>
 
 		<!-- Volver-->

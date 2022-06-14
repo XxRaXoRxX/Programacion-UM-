@@ -29,7 +29,7 @@
 				<div class = "row align-self-center">
 					<!-- Logo Poema -->
 					<div class="col-sm-2">
-						<img class = "logo float-start" src="logo.png" alt="Logo">
+						<img class = "logo float-start" src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
 					</div>
 					<!-- Poem Online -->
 					<div class="col-sm-10">
@@ -67,41 +67,42 @@
 				</div>
 			</div>
     	</div>
-	
-		<!-- Espacio Vacio-->
-		<div class="row mt-5"></div>
 
-		<!-- Texto advertencia-->
-    	<div class="row mt-5 align-items-center text-center">
-			<div class="col-sm-12">
-				<p class = "tituloConfig">
-					<b>Estas seguro que</b>
-				</p>
-				<p class = "tituloConfig">
-					<b>quieres <span style="color: #ff0000">ELIMINAR</span> tu cuenta?</b>
-				</p>
+    	<!-- Titulo del poema y cancelar-->
+    	<div class="row mt-2 align-items-center text-center">
+			<!-- Titulo del poema -->
+			<div class="col-sm-10">
+				<form method="POST">
+					<input class="form-control-lg text-start contenidoConfig float-start" type="text" name="email" id="texto" placeholder="Título del Poema">
+				</form>
 			</div>
-    	</div>
-
-		<!-- Eliminar-->
-		<div class="row mt-4 align-items-center">
-			<div class="col-sm-3"></div>
-			<!-- Boton -->
-			<div class="col-sm-6">
-				<button class="btn-danger btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "contenidoConfigWhite">Eliminar</font>
+			<!-- Cancelar -->
+			<div class="col-sm-2 mt-1">
+				<button class="btn-danger text-start" style="height: 90px;" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
+					<p class = "contenidoConfigWhite" style="font-size: 50px;">
+						<span class="flechaCancelar"><-</span>Cancelar
+					</p>
 				</button>
 			</div>
-			<div class="col-sm-3"></div>
     	</div>
 
-		<!-- Cancelar-->
+    	<!-- Cuerpo Poema-->
+    	<div class="row mt-2 text-center">
+			<!-- Cuerpo del Poema -->
+			<div class="col-sm-12">
+				<form method="POST">
+					<textarea class="form-control-lg text-start contenidoConfig float-start" id="exampleFormControlTextarea1" rows="8" placeholder="Cuerpo del Poema"></textarea>
+				</form>
+			</div>
+    	</div>
+
+		<!-- Publicar Poema -->
     	<div class="row mt-4 align-items-center">
 			<div class="col-sm-3"></div>
 			<!-- Boton -->
 			<div class="col-sm-6">
 				<button class="btn-light btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "contenidoConfig">Cancelar</font>
+					<font class = "contenidoConfig">Publicar</font>
 				</button>
 			</div>
 			<div class="col-sm-3"></div>

@@ -13,7 +13,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!--Incluyo CSS para dar color a las columnas -->
-	<link rel="stylesheet" href="estilos.css">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
 	
   	<!-- Incluir CDN CSS de Bootstrap-->
 	<!-- CSS only -->
@@ -32,7 +32,7 @@
 				<div class = "row align-self-center">
 					<!-- Logo Poema -->
 					<div class="col-sm-2">
-						<img class = "logo float-start" src="logo.png" alt="Logo">
+						<img class = "logo float-start" src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
 					</div>
 					<!-- Poem Online -->
 					<div class="col-sm-10">
@@ -65,7 +65,7 @@
 					</div>
 					<!-- Icono usuario -->
 					<div class="col-sm-2">
-						<img class = "userLogo float-start" src="user.png" alt="User">
+						<img class = "userLogo float-start" src="{{url_for('static', filename='img/user.png')}}" alt="User">
 					</div>
 				</div>
 			</div>
