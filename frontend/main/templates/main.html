@@ -49,9 +49,11 @@
 				<div class = "row align-items-center">
 					<!-- Publicar un Poema-->
 					<div class="col-sm-8">
-						<button type="button" class="btn-primary float-end">
-							Publicar Poema
-						</button>
+						<a href="{{url_for('poem.create')}}">
+							<button type="button" class="btn-primary float-end" >
+								Publicar Poema
+							</button>
+						</a>
 					</div>
 					<!-- Icono configuración -->
 					<div class="col-sm-2">
