@@ -1,74 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Poem Online</title>
-  <meta charset="utf-8">
-  	<!--Estilo de letra para el logo -->
-  	<link href='https://fonts.googleapis.com/css?family=Fuggles' rel='stylesheet'>
+{% extends 'base.html' %}
 
-	<!--Estilo de letra para los Títulos de poemas -->
-	<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-
- 	<!--Colocar el viewport -->
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<!--Incluyo CSS para dar color a las columnas -->
-	<link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
-	
-  	<!-- Incluir CDN CSS de Bootstrap-->
-	<!-- CSS only -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-</head>
-<body>
-    <div class="container-fluid">
-
-		<!-- Fila superior -->
-    	<div class="row barraSuperior align-items-center">
-			<!-- Fila izquierda -->
-    		<div class="col-sm-4">
-				<div class = "row align-self-center">
-					<!-- Logo Poema -->
-					<div class="col-sm-2">
-						<img class = "logo float-start" src="{{url_for('static', filename='img/logo.png')}}" alt="Logo">
-					</div>
-					<!-- Poem Online -->
-					<div class="col-sm-10">
-						<p class = "logoName float-start">
-							Poems Online
-						</p>
-					</div>
-				</div>
-			</div>
-			<!-- Espacio vacio -->
-			<div class="col-sm-4"></div>
-			<!-- Fila Derecha -->
-			<div class="col-sm-4">
-				<div class = "row align-items-center">
-					<!-- Publicar un Poema-->
-					<div class="col-sm-8">
-						<a href="{{url_for('poem.create')}}">
-							<button type="button" class="btn-primary float-end">
-								Publicar Poema
-							</button>
-						</a>
-					</div>
-					<!-- Icono configuración -->
-					<div class="col-sm-2">
-						<button class="btn btn-lg dropdown-toggle float-end" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-							<font class = "config">+</font>
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li><a class="dropdown-item" href="{{url_for('my.index')}}">Ver Usuario</a></li>
-							<li><a class="dropdown-item" href="{{url_for('my.edit')}}">Configurar Usuario</a></li>
-						</ul>
-					</div>
-					<!-- Icono usuario -->
-					<div class="col-sm-2">
-						<img class = "userLogo float-start" src="{{url_for('static', filename='img/user.png')}}" alt="User">
-					</div>
-				</div>
-			</div>
-    	</div>
+{% block content %}
 
     	<!-- Configurar cuenta-->
     	<div class="row mt-2 align-items-center text-center">
@@ -157,9 +89,5 @@
 			<div class="col-sm-3"></div>
     	</div>
     </div>
-    <!-- Incluir CDN Jquery-->
-    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
-  </body>
-</html>
+
+{% endblock %}
