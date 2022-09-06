@@ -49,9 +49,11 @@
 				<div class = "row align-items-center">
 					<!-- Publicar un Poema-->
 					<div class="col-sm-8">
-						<button type="button" class="btn-primary float-end">
-							Publicar Poema
-						</button>
+						<a href="{{url_for('poem.create')}}">
+							<button type="button" class="btn-primary float-end">
+								Publicar Poema
+							</button>
+						</a>
 					</div>
 					<!-- Icono configuración -->
 					<div class="col-sm-2">
@@ -59,8 +61,8 @@
 							<font class = "config">+</font>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li><a class="dropdown-item" href="#">Ver Usuario</a></li>
-							<li><a class="dropdown-item" href="#">Configurar Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.index')}}">Ver Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.edit')}}">Configurar Usuario</a></li>
 						</ul>
 					</div>
 					<!-- Icono usuario -->
@@ -89,11 +91,13 @@
 
 			<!-- Menu -->
 			<div class="col-sm-2">
-				<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">
-						<span class="flechaCancelar float-start"><-</span>Menu
-					</p>
-				</button>
+				<a href="{{url_for('main.index')}}">
+					<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
+						<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">
+							<span class="flechaCancelar float-start"><-</span>Menu
+						</p>
+					</button>
+				</a>
 			</div>
     	</div>
 
@@ -106,7 +110,7 @@
 						Cuerpo del Poema
 					</p>
 					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 						<div class="centeredComments calificacionMenu">5</div>
 					</div>
 				</div>
@@ -130,7 +134,7 @@
 					<!-- Boton calificación -->
 					<div class="bottom-left-user-mark container">
 						<button class="btn-info dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class = "estrellaComentarioUser" src="Stars.png" alt="Calificación">
+							<img class = "estrellaComentarioUser" src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<li>
@@ -163,7 +167,7 @@
 				<div class="container comentarioBox comentariosPoema text-start mt-1">
 					<p>Nombre Apellido:<br> Comentario</p>
 					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 						<div class="centeredComments calificacionComentarios">5</div>
 					</div>
 				</div>
@@ -172,7 +176,7 @@
 				<div class="container comentarioBox comentariosPoema text-start mt-1">
 					<p>Nombre Apellido:<br> Comentario</p>
 					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 						<div class="centeredComments calificacionComentarios">5</div>
 					</div>
 				</div>
@@ -181,7 +185,7 @@
 				<div class="container comentarioBox comentariosPoema text-start mt-1">
 					<p>Nombre Apellido:<br> Comentario</p>
 					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="Stars.png" alt="Calificación">
+						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 						<div class="centeredComments calificacionComentarios">5</div>
 					</div>
 				</div>

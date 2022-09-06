@@ -46,9 +46,11 @@
 				<div class = "row align-items-center">
 					<!-- Publicar un Poema-->
 					<div class="col-sm-8">
-						<button type="button" class="btn-primary float-end">
-							Publicar Poema
-						</button>
+						<a href="{{url_for('poem.create')}}">
+							<button type="button" class="btn-primary float-end">
+								Publicar Poema
+							</button>
+						</a>
 					</div>
 					<!-- Icono configuración -->
 					<div class="col-sm-2">
@@ -56,13 +58,13 @@
 							<font class = "config">+</font>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li><a class="dropdown-item" href="#">Ver Usuario</a></li>
-							<li><a class="dropdown-item" href="#">Configurar Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.index')}}">Ver Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.edit')}}">Configurar Usuario</a></li>
 						</ul>
 					</div>
 					<!-- Icono usuario -->
 					<div class="col-sm-2">
-						<img class = "userLogo float-start" src="user.png" alt="User">
+						<img class = "userLogo float-start" src="{{url_for('static', filename='img/user.png')}}" alt="User">
 					</div>
 				</div>
 			</div>
@@ -78,11 +80,13 @@
 			</div>
 			<!-- Cancelar -->
 			<div class="col-sm-2 mt-1">
-				<button class="btn-danger text-start" style="height: 90px;" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<p class = "contenidoConfigWhite" style="font-size: 50px;">
-						<span class="flechaCancelar"><-</span>Cancelar
-					</p>
-				</button>
+				<a href="{{url_for('main.index')}}" >
+					<button class="btn btn-danger text-start" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
+						<p class = "contenidoConfigWhite" style="font-size: 50px;">
+							<span class="flechaCancelar"><-</span>Cancelar
+						</p>
+					</button>
+				</a>
 			</div>
     	</div>
 

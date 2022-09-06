@@ -46,9 +46,11 @@
 				<div class = "row align-items-center">
 					<!-- Publicar un Poema-->
 					<div class="col-sm-8">
-						<button type="button" class="btn-primary float-end">
-							Publicar Poema
-						</button>
+						<a href="{{url_for('poem.create')}}">
+							<button type="button" class="btn-primary float-end">
+								Publicar Poema
+							</button>
+						</a>
 					</div>
 					<!-- Icono configuración -->
 					<div class="col-sm-2">
@@ -56,8 +58,8 @@
 							<font class = "config">+</font>
 						</button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li><a class="dropdown-item" href="#">Ver Usuario</a></li>
-							<li><a class="dropdown-item" href="#">Configurar Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.index')}}">Ver Usuario</a></li>
+							<li><a class="dropdown-item" href="{{url_for('my.edit')}}">Configurar Usuario</a></li>
 						</ul>
 					</div>
 					<!-- Icono usuario -->
@@ -98,9 +100,11 @@
 			<div class="col-sm-3"></div>
 			<!-- Boton -->
 			<div class="col-sm-6">
-				<button class="btn-light btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "contenidoConfig">Cambiar Contraseña</font>
-				</button>
+				<a href="{{url_for('my.password')}}">
+					<button class="btn-light btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+						<font class = "contenidoConfig">Cambiar Contraseña</font>
+					</button>
+				</a>
 			</div>
 			<div class="col-sm-3"></div>
     	</div>
@@ -110,9 +114,11 @@
 			<div class="col-sm-3"></div>
 			<!-- Boton -->
 			<div class="col-sm-6">
-				<button class="btn-danger btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "contenidoConfigWhite">Eliminar Cuenta</font>
-				</button>
+				<a href="{{url_for('my.delete')}}">
+					<button class="btn-danger btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+						<font class = "contenidoConfigWhite">Eliminar Cuenta</font>
+					</button>
+				</a>
 			</div>
 			<div class="col-sm-3"></div>
     	</div>
@@ -122,9 +128,11 @@
 			<div class="col-sm-3"></div>
 			<!-- Boton -->
 			<div class="col-sm-6">
-				<button class="btn-danger btn-lg" type="button" id="ChangePassword" data-bs-toggle="dropdown" aria-expanded="false">
-					<font class = "contenidoConfigWhite">Volver al Menu</font>
-				</button>
+				<a href="{{url_for('main.index')}}">
+					<button class="btn-danger btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+						<font class = "contenidoConfigWhite">Volver al Menu</font>
+					</button>
+				</a>
 			</div>
 			<div class="col-sm-3"></div>
     	</div>
