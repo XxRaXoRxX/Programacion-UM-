@@ -133,7 +133,7 @@ class Poems(Resource):
                     poems = poems.filter(PoemModel.created_at <= datetime.strptime(value, "%d/%m/%Y"))
                 # Traer poemas por nombre de usuario.
                 if key == "username":
-                    poems = poems.filter(PoemModel.user.has(UserModel.username.like("%" + value + "%")))
+                    poems = poems.filter(PoemModel.user.has(UserModel.name.like("%" + value + "%")))
                 # Traer poemas por rating
                 if key == "rating":
                     poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).having(func.avg(MarkModel.score).like(float(value)))

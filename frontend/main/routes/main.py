@@ -19,6 +19,8 @@ def login():
     # Envio de logueo.
     data = {"email": "usuario@usuario.com", "password": "123"}
     headers = {"Content-Type" : "application/json"}
+
+    # Generamos la respuesta, mandando endpoint, data diccionario, y el headers que es el formato como aplication json.
     response = requests.post(api_url, json = data, headers = headers)
 
     # Obtener el token desde response.
