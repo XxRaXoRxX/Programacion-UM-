@@ -18,7 +18,7 @@ def poems():
     api_url = "http://127.0.0.1:8500/poems"
 
     # Envio de la pagina y cuantos datos por pagina.
-    data = {"page": 1, "perpage": 2}
+    data = {"page": 1, "perpage": 3}
 
     # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
     jwt = request.cookies.get("access_token")

@@ -46,10 +46,7 @@
 			<!-- Fila Derecha -->
 			<div class="col-sm-4">
 
-				<!-- Test use only (y: registered // x: not registered) -->
-				{% set login = 'y' %}
-
-				{% if login == 'y' %}
+				{% if jwt %}
 				<!-- Usuario registrado -->
 				<div class = "row align-items-center"> 
 					<!-- Publicar un Poema (Usuario Registrado) --> 
