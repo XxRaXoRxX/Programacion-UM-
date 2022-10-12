@@ -101,7 +101,6 @@ class Poems(Resource):
 
 
     # Utils functions.
-
     # Mostrar poemas con ordenamiento para poetas y admines.
     def ShowPoemsWithoutToken(self):
         

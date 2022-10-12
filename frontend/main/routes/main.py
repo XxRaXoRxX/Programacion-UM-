@@ -42,8 +42,9 @@ def login():
             
             if (response.ok):
                 # Obtener el token desde response.
-                token = json.loads(response.text)
-                token = token["access_token"]
+                response = json.loads(response.text)
+                token = response["access_token"]
+                user_id = str(response["id"])
 
                 # TODO: URL hardcodeada. Madar esto a __init__.py
                 api_url = "http://127.0.0.1:8500/poems"
@@ -56,6 +57,7 @@ def login():
                 # Guardar el token en las cookies y devuelve la página.
                 resp = make_response(render_template("main.html", jwt = token, poems = poemsList))
                 resp.set_cookie("access_token", token)
+                resp.set_cookie("user_id", user_id)
                 return resp
 
         # TODO: Mostrar mensaje de error de logueo.

@@ -36,12 +36,12 @@ class User(db.Model):
             'id': self.id,
             'name': str(self.name),
             'poemsAmount': len(self.poems),
-            'ratingAmount': len(self.marks)
+            'ratingAmount': len(self.marks),
             #'poems': [poem.to_json() for poem in self.poems],
             #'marks': [mark.to_json() for mark in self.marks]
             #'password': str(self.password)
             #'rol': str(self.rol),
-            #'email': str(self.email),
+            'email': str(self.email)
         }
         return user_json
 
