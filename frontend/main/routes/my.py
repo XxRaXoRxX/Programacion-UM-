@@ -12,10 +12,8 @@ my = Blueprint('my', __name__, url_prefix='/my')
 def index():
     # traemos el token de las cookies.
     jwt = func.get_jwt()
-    print(jwt)
     user = auth.load_user(jwt)
     
-    # TODO: URL hardcodeada. Madar esto a __init__.py
     api_url = f'{current_app.config["API_URL"]}/user/{user["id"]}'
 
     # Guardamos la información de usuario en una variable.
@@ -27,12 +25,11 @@ def index():
 # Ver poemas del usuario
 @my.route('/poems')
 def poems():
-    # TODO: URL hardcodeada. Madar esto a __init__.py
     api_url = f'{current_app.config["API_URL"]}/poems'
 
     jwt = func.get_jwt()
-    #id = func.get_id()
-    resp = func.get_poems_by_id(api_url, id)
+    user = auth.load_user(jwt)
+    resp = func.get_poems_by_id(api_url, user["id"])
 
     # Guardamos los poemas en una variable.
     poems = json.loads(resp.text)
