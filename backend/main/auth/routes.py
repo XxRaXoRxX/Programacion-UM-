@@ -15,7 +15,7 @@ def login():
     
     #Valida la contraseña
     if user.validate_pass(request.get_json().get("password")):
-        #Genera un nuevo token y pasa el objeto professor como identidad
+        #Genera un nuevo token y pasa el objeto user como identidad
         access_token = create_access_token(identity=user)
         
         #Devolver valores y token

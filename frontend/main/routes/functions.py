@@ -39,9 +39,6 @@ def get_headers(without_token = False):
 def get_jwt():
     return request.cookies.get("access_token")
 
-def get_id():
-    return request.cookies.get("user_id")
-
 def get_username(user_id):
     # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
     headers = get_headers()

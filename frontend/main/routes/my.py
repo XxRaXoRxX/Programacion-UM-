@@ -1,5 +1,6 @@
-from flask import Blueprint, redirect, url_for, render_template, request
+from flask import Blueprint, current_app, redirect, url_for, render_template, request
 from . import functions as func
+from . import auth as auth
 import requests
 import json
 
@@ -9,12 +10,13 @@ my = Blueprint('my', __name__, url_prefix='/my')
 # Ver información del usuario
 @my.route('/')
 def index():
-    # traemos el id, token y username de las cookies.
-    id = func.get_id()
+    # traemos el token de las cookies.
     jwt = func.get_jwt()
+    print(jwt)
+    user = auth.load_user(jwt)
     
     # TODO: URL hardcodeada. Madar esto a __init__.py
-    api_url = f"http://127.0.0.1:8500/user/{id}"
+    api_url = f'{current_app.config["API_URL"]}/user/{user["id"]}'
 
     # Guardamos la información de usuario en una variable.
     user_info = func.get_user_info(api_url)
@@ -26,10 +28,10 @@ def index():
 @my.route('/poems')
 def poems():
     # TODO: URL hardcodeada. Madar esto a __init__.py
-    api_url = "http://127.0.0.1:8500/poems"
+    api_url = f'{current_app.config["API_URL"]}/poems'
 
     jwt = func.get_jwt()
-    id = func.get_id()
+    #id = func.get_id()
     resp = func.get_poems_by_id(api_url, id)
 
     # Guardamos los poemas en una variable.

@@ -1,6 +1,9 @@
 import os
 from flask import Flask
 from dotenv import load_dotenv
+from flask_login import LoginManager, login_required
+
+login_manager = LoginManager()
 
 # Metodo que inicializara todos los modulos y variables
 def create_app():
@@ -9,6 +12,10 @@ def create_app():
 
     #Cargar variables de entorno
     load_dotenv()
+
+    app.config["API_URL"] = os.getenv("API_URL")
+
+    login_manager.init_app(app)
 
     #Iniciar el resto de las extensiones.
     #Extensiones
