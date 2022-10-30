@@ -12,30 +12,34 @@ my = Blueprint('my', __name__, url_prefix='/my')
 def index():
     # traemos el token de las cookies.
     jwt = func.get_jwt()
-    user = auth.load_user(jwt)
-    
-    api_url = f'{current_app.config["API_URL"]}/user/{user["id"]}'
 
-    # Guardamos la información de usuario en una variable.
-    user_info = func.get_user_info(api_url)
-    user_info = json.loads(user_info.text)
+    if (jwt):
+        user = auth.load_user(jwt)
+        
+        # Guardamos la información de usuario en una variable.
+        user_info = func.get_user_info(user["id"])
+        user_info = json.loads(user_info.text)
 
-    return render_template('user_info.html', jwt = jwt, user_info = user_info)
+        return render_template('user_info.html', jwt = jwt, user_info = user_info)
+    else:
+        return redirect(url_for('main.login'))
 
 # Ver poemas del usuario
 @my.route('/poems')
 def poems():
-    api_url = f'{current_app.config["API_URL"]}/poems'
 
     jwt = func.get_jwt()
-    user = auth.load_user(jwt)
-    resp = func.get_poems_by_id(api_url, user["id"])
+    if (jwt):
+        user = auth.load_user(jwt)
+        resp = func.get_poems_by_id(user["id"])
 
-    # Guardamos los poemas en una variable.
-    poems = json.loads(resp.text)
-    poemsList = poems["poems"]
+        # Guardamos los poemas en una variable.
+        poems = json.loads(resp.text)
+        poemsList = poems["poems"]
 
-    return render_template('user_poems.html', jwt = jwt, poems = poemsList)
+        return render_template('user_poems.html', jwt = jwt, poems = poemsList)
+    else:
+        return redirect(url_for('main.login'))
 
 # Editar usuario
 @my.route('/edit')

@@ -82,8 +82,8 @@ class Poems(Resource):
         if (claims['role'] == "user" or "admin"):
 
             #Cancelar operacion en caso de que el id del request y del jwt sean diferentes
-            if (claims['id'] != request.get_json().get('id')):
-                return 'El id de consulta no coincide con el de su cuenta', 404
+            #if (claims['id'] != request.get_json().get('id')):
+            #    return 'El id de consulta no coincide con el de su cuenta', 404
 
             # Me traigo el usuario por el id.
             user = db.session.query(UserModel).get_or_404(claims['id'])

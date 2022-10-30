@@ -7,14 +7,14 @@
 			<!-- Titulo del poema -->
 			<div class="col-sm-6">
 				<p class = "tituloPoema float-start">
-					Título del Poema
+					{{poem.title}}
 				</p>
 			</div>
 
 			<!-- Autor -->
 			<div class="col-sm-4">
 				<p class = "tituloPoema float-start" style="font-size: 50px;">
-					Autor: Nombre y Apellido
+					Autor: {{poem.user.name}}
 				</p>
 			</div>
 
@@ -36,11 +36,11 @@
 			<div class="col-sm-8">
 				<div class="container cuerpoBox cuerpoPoema text-start float-start">
 					<p>
-						Cuerpo del Poema
+						{{poem.body}}
 					</p>
 					<div class="bottom-left container">
 						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionMenu">5</div>
+						<div class="centeredComments calificacionMenu"> {{poem.marksAvrg}} </div>
 					</div>
 				</div>
 			</div>
