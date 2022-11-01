@@ -64,6 +64,15 @@ def get_username(user_id):
     return user["name"]
 # -- User --
 
+# -- Marks --
+def get_marks_by_poem_id(id):
+    api_url = f'{current_app.config["API_URL"]}/marks'
+
+    data = {"poem_id": id}
+    headers = get_headers()
+    return requests.get(api_url, json = data, headers = headers)
+# -- Marks --
+
 # -- json --
 def get_json(resp):
     return json.loads(resp.text)

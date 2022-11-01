@@ -2,6 +2,7 @@ from flask_restful import Resource
 from flask import request, jsonify
 from .. import db
 from main.models import MarkModel
+from main.models import PoemModel
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from main.auth.decorators import admin_required
 from main.mail.functions import sendMail
@@ -60,6 +61,13 @@ class Marks(Resource):
     #Obtener Lista de Calificaciones
     @jwt_required(optional=True) #Requisito para todos los usuarios tanto con token como no.
     def get(self):
+
+        if request.get_json():
+            filters = request.get_json().items()
+            for key, value in filters:
+                if key == "poem_id":
+                    return self.show_marks_by_poem_id(value)
+
         marks = db.session.query(MarkModel).all()
         return jsonify([mark.to_json() for mark in marks])
 
@@ -88,3 +96,8 @@ class Marks(Resource):
             return mark.to_json(), 201 #Finaliza correctamente la operación
         else:
             return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
+
+    def show_marks_by_poem_id(self, id):
+        marks = db.session.query(MarkModel)
+        marks = marks.filter(MarkModel.poem.has(PoemModel.id == id)).all()
+        return jsonify([mark.to_json() for mark in marks])

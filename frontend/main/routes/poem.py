@@ -15,7 +15,10 @@ def view(id):
         resp = func.get_poem(id)
         poem = func.get_json(resp)
 
-        return render_template('poems.html', jwt = jwt, poem = poem)
+        resp = func.get_marks_by_poem_id(id)
+        marks = func.get_json(resp)
+
+        return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
     else:
         return redirect(url_for('main.login'))
 
@@ -41,10 +44,8 @@ def create():
                 if (response.ok):
                     # Traer poema y mostrarlo.
                     resp = func.get_json(response)
-                    poem = func.get_poem(resp["id"])
-                    poem = func.get_json(poem)
-
-                    return render_template("poems.html", jwt = jwt, poem = poem)
+                    id = resp["id"]
+                    return view(id)
             
             # TODO: Mostrar mensaje de error al crear poema.
             return render_template("create_poem.html", jwt = jwt)

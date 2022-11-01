@@ -92,33 +92,19 @@
 					</div>
 				</div>
 
-				<!-- Comentario -->
-				<div class="container comentarioBox comentariosPoema text-start mt-1">
-					<p>Nombre Apellido:<br> Comentario</p>
-					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionComentarios">5</div>
-					</div>
-				</div>
+				{% for mark in marks %}
 
 				<!-- Comentario -->
 				<div class="container comentarioBox comentariosPoema text-start mt-1">
-					<p>Nombre Apellido:<br> Comentario</p>
+					<p>{{mark.user.name}}: <br>{{mark.comment}}</p>
 					<div class="bottom-left container">
 						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionComentarios">5</div>
+						<div class="centeredComments calificacionComentarios">{{mark.score}}</div>
 					</div>
 				</div>
 
-				<!-- Comentario -->
-				<div class="container comentarioBox comentariosPoema text-start mt-1">
-					<p>Nombre Apellido:<br> Comentario</p>
-					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionComentarios">5</div>
-					</div>
-				</div>
-
+				{% endfor %}
+				
 			</div>
     	</div>
     </div>
