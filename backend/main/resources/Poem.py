@@ -89,13 +89,16 @@ class Poems(Resource):
             user = db.session.query(UserModel).get_or_404(claims['id'])
 
             # Condición para poder publicar su primer poema
-            if (len(user.poems) == 0 or len(user.marks)/len(user.poems) >= 5):
+            if (len(user.poems) == 0 or len(user.marks)/len(user.poems) >= 0):
                 poem = PoemModel.from_json(request.get_json())
                 db.session.add(poem)
                 db.session.commit()
-                return poem.to_json(), 201
+                if (claims['role'] == "admin"):
+                    return poem.to_json_admin(), 201
+                elif (claims['role'] == "user"):
+                    return poem.to_json_user(), 201
             else:
-                return 'No cumple las condiciones', 404 #Error al intentar publicar y no cumplir la condición de poemas publicados.
+                return 'No cumple las condiciones', 404 #Error al intentar publicar y no cumplir la condición de poemas publicados
         else:
             return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
 

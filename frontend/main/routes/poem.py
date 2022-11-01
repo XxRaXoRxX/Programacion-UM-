@@ -30,14 +30,21 @@ def create():
             titulo_poema = request.form.get("titulo_poema")
             cuerpo_poema = request.form.get("cuerpo_poema")
 
-            if titulo_poema != None and cuerpo_poema != None:
+            if titulo_poema != "" and cuerpo_poema != "":
                 
                 user = auth.load_user(jwt)
 
-                response = func.create_poem(titulo_poema, cuerpo_poema, user["id"])
+                response = func.create_poem(id = user["id"], 
+                                            titulo_poema = titulo_poema, 
+                                            cuerpo_poema = cuerpo_poema)
 
                 if (response.ok):
-                    return render_template("poems.html", jwt = jwt)
+                    # Traer poema y mostrarlo.
+                    resp = func.get_json(response)
+                    poem = func.get_poem(resp["id"])
+                    poem = func.get_json(poem)
+
+                    return render_template("poems.html", jwt = jwt, poem = poem)
             
             # TODO: Mostrar mensaje de error al crear poema.
             return render_template("create_poem.html", jwt = jwt)
