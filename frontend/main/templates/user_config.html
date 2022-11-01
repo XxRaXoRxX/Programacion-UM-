@@ -11,21 +11,33 @@
 			</div>
     	</div>
 
-    	<!-- Nombre y Apellido-->
-    	<div class="row mt-2 text-center">
-			<!-- Texto -->
-			<div class="col-sm-4">
-				<p class = "contenidoConfig float-end">
-					Nombre y Apellido
-				</p>
+		<form method="POST" action="{{url_for('my.edit')}}">
+			<!-- Nombre y Apellido-->
+			<div class="row mt-2 text-center">
+				<!-- Texto -->
+				<div class="col-sm-4">
+					<p class = "contenidoConfig float-end">
+						Nombre y Apellido
+					</p>
+				</div>
+				<!-- Formulario -->
+				<div class="col-sm-7">
+					<input class="form-control-lg text-center contenidoConfig float-start" type="text" name="editar_nick" id="texto" placeholder="{{user.name}}">
+				</div>
 			</div>
-			<!-- Formulario -->
-			<div class="col-sm-7">
-				<form method="POST">
-					<input class="form-control-lg text-center contenidoConfig float-start" type="text" name="Editar nick usuario" id="texto" placeholder="Nombre Apellido">
-				</form>
+
+			<!-- Cambiar contraseña-->
+			<div class="row mt-4 align-items-center">
+				<div class="col-sm-3"></div>
+				<!-- Boton -->
+				<div class="col-sm-6">
+					<button type="submit" class="btn-light btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+						<font class = "contenidoConfig">Cambiar Nickname</font>
+					</button>
+				</div>
+				<div class="col-sm-3"></div>
 			</div>
-    	</div>
+		</form>
 
 		<!-- Cambiar contraseña-->
     	<div class="row mt-4 align-items-center">

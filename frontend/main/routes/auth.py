@@ -13,7 +13,7 @@ def load_user(token):
             'verify_aud': False
         }
         data = jwt.decode(token, options=jwt_options, algorithms=["HS256"])
-        return {"id":data["id"], "email":data["email"]}
+        return {"id":data["id"], "email":data["email"], "rol":data["role"]}
     except jwt.exceptions.InvalidTokenError:
         print('Invalid Token')
     except jwt.exceptions.DecodeError:

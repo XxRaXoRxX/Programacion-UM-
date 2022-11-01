@@ -7,20 +7,30 @@ import requests
 poem = Blueprint('poem', __name__, url_prefix='/poem')
 
 # Ver un poema determinado.
-@poem.route('/view/<int:id>')
+@poem.route('/view/<int:id>', methods=['GET', 'POST'])
 def view(id):
+
     jwt = func.get_jwt()
 
-    if (jwt):
-        resp = func.get_poem(id)
-        poem = func.get_json(resp)
+    if(request.method == "POST"):
+        if (jwt):
+            user = auth.load_user(jwt)
+            user_id = user["id"]
+            score = request.form.get("score")
+            comment = request.form.get("comment")
 
-        resp = func.get_marks_by_poem_id(id)
-        marks = func.get_json(resp)
-
-        return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
+            resp = func.post_mark(poem_id = id, score = score, comment = comment, user_id = user_id)
     else:
-        return redirect(url_for('main.login'))
+        if (jwt):
+            resp = func.get_poem(id)
+            poem = func.get_json(resp)
+
+            resp = func.get_marks_by_poem_id(id)
+            marks = func.get_json(resp)
+
+            return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
+
+    return redirect(url_for('main.login'))
 
 # Crear un nuevo poema.
 @poem.route('/create', methods=['GET', 'POST'])

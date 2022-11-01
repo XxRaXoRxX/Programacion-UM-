@@ -42,9 +42,24 @@ def poems():
         return redirect(url_for('main.login'))
 
 # Editar usuario
-@my.route('/edit')
+@my.route('/edit', methods=['GET', 'POST'])
 def edit():
-    return render_template('user_config.html')
+    if(request.method == "POST"):
+        # Obtener el nuevo nickname y cambiar nombre de usuario.
+        nick = request.form.get("editar_nick")
+        func
+    else:
+        jwt = func.get_jwt()
+        if (jwt):
+            user = auth.load_user(jwt)
+
+            # Guardamos la información de usuario en una variable.
+            user_info = func.get_user_info(user["id"])
+            user_info = json.loads(user_info.text)
+
+            return render_template('user_config.html', jwt = jwt, user = user_info)
+        else:
+            return redirect(url_for('main.login'))
 
 # Eliminar cuenta del usuario
 @my.route('/delete')

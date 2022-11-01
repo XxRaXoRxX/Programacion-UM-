@@ -39,10 +39,17 @@ def login():
 
                 # Guardar el token en las cookies y devuelve la página.
                 resp = make_response(index(jwt=token))
+                #resp = make_response(redirect(url_for('main.index'), token))
                 resp.set_cookie("access_token", token)
                 return resp
 
         # TODO: Mostrar mensaje de error de logueo.
-        return render_template("login.html")
+        return render_template("login.html", error = "Usuario y contraseña incorrectos")
     else:
         return render_template("login.html")
+
+@main.route('/logout')
+def logout():
+    resp = make_response(redirect('login'))
+    resp.set_cookie('access_token', '', expires=0)
+    return resp

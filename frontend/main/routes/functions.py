@@ -65,12 +65,19 @@ def get_username(user_id):
 # -- User --
 
 # -- Marks --
-def get_marks_by_poem_id(id):
+def get_marks_by_poem_id(poem_id):
     api_url = f'{current_app.config["API_URL"]}/marks'
 
-    data = {"poem_id": id}
+    data = {"poem_id": poem_id}
     headers = get_headers()
     return requests.get(api_url, json = data, headers = headers)
+
+def post_mark(poem_id, score, comment, user_id):
+    api_url = f'{current_app.config["API_URL"]}/marks'
+
+    data = {"score": score, "comment":comment, "userID":user_id, "poemID":poem_id}
+    headers = get_headers()
+    return requests.post(api_url, json = data, headers = headers)
 # -- Marks --
 
 # -- json --
