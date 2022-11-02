@@ -2,6 +2,7 @@
 
 {% block content %}
 
+<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
     	<!-- Titulo del poema, autor y Menu -->
     	<div class="row mt-2 align-items-center text-center">
 			<!-- Titulo del poema -->
@@ -49,13 +50,13 @@
 
 				<!-- Comentario de Usuario -->
 				<div class="container comentarioBox comentariosPoema text-start mt-1">
-					<form method="POST">
-						<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" id="exampleFormControlTextarea1" rows="7" placeholder="Ingresar Comentario"></textarea>
-					</form>
+
+					<!-- Ingresar Comentario -->
+					<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario"></textarea>
 
 					<!-- Boton enviar comentario -->
 					<div class="bottom-left-user-send container">
-						<button class="btn-warning dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+						<button type = "submit" class="btn-warning dropdown" type="button" id="dropdownMenuButton" aria-expanded="false">
 							<i class="cuerpoPoema bi bi-check-lg"></i>
 						</button>
 					</div>
@@ -68,23 +69,23 @@
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							<li>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									<input class="form-check-input" type="radio" name="score" id="inlineRadio1" value="1">
 									<label class="form-check-label" for="inlineRadio1">1</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									<input class="form-check-input" type="radio" name="score" id="inlineRadio2" value="2">
 									<label class="form-check-label" for="inlineRadio2">2</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									<input class="form-check-input" type="radio" name="score" id="inlineRadio3" value="3">
 									<label class="form-check-label" for="inlineRadio3">3</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option4">
+									<input class="form-check-input" type="radio" name="score" id="inlineRadio4" value="4">
 									<label class="form-check-label" for="inlineRadio4">4</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="option5">
+									<input class="form-check-input" type="radio" name="score" id="inlineRadio5" value="5">
 									<label class="form-check-label" for="inlineRadio5">5</label>
 								</div>
 							</li>
@@ -104,8 +105,9 @@
 				</div>
 
 				{% endfor %}
-				
 			</div>
     	</div>
     </div>
+</form>
+
 {% endblock %}

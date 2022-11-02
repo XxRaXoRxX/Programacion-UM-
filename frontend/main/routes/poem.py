@@ -14,23 +14,39 @@ def view(id):
 
     if(request.method == "POST"):
         if (jwt):
+            # Postear comentario.
             user = auth.load_user(jwt)
             user_id = user["id"]
             score = request.form.get("score")
-            comment = request.form.get("comment")
-
+            comment = request.form.get("comentario")
             resp = func.post_mark(poem_id = id, score = score, comment = comment, user_id = user_id)
+
+            # Obtener el poema y los comentarios.
+            poem, marks = get_poem_and_marks(id)
+
+            if (resp.ok):
+                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, message = "Comentario publicado con éxito.")
+            else:
+                # TODO: Mostrar error.
+                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, message = "Error al publicar el comentario.")
+
     else:
         if (jwt):
-            resp = func.get_poem(id)
-            poem = func.get_json(resp)
 
-            resp = func.get_marks_by_poem_id(id)
-            marks = func.get_json(resp)
-
+            poem, marks = get_poem_and_marks(id)
             return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
 
     return redirect(url_for('main.login'))
+
+def get_poem_and_marks(poem_id):
+    # Obtener el poema.
+    resp = func.get_poem(poem_id)
+    poem = func.get_json(resp)
+    # Obtener los comentarios.
+    resp = func.get_marks_by_poem_id(poem_id)
+    marks = func.get_json(resp)
+
+    return poem, marks
 
 # Crear un nuevo poema.
 @poem.route('/create', methods=['GET', 'POST'])
