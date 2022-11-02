@@ -49,62 +49,63 @@
 			<div class="col-sm-4 overflow">
 
 				<!-- Comentario de Usuario -->
-				<div class="container comentarioBox comentariosPoema text-start mt-1">
+				<div class="card example-1 scrollbar-near-moon" style="height: 0px;">
+					<div class="card-body">		
+						<div class="container comentarioBox comentariosPoema text-start mt-1">
 
-					<!-- Ingresar Comentario -->
-					<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario"></textarea>
+							<!-- Ingresar Comentario -->
+							<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario"></textarea>
 
-					<!-- Boton enviar comentario -->
-					<div class="bottom-left-user-send container">
-						<button type = "submit" class="btn-warning dropdown" type="button" id="dropdownMenuButton" aria-expanded="false">
-							<i class="cuerpoPoema bi bi-check-lg"></i>
-						</button>
-					</div>
+							<!-- Boton enviar comentario -->
+							<div class="bottom-left-user-send container">
+								<button type = "submit" class="btn-warning dropdown" type="button" id="dropdownMenuButton" aria-expanded="false">
+									<i class="cuerpoPoema bi bi-check-lg"></i>
+								</button>
+							</div>
 
-					<!-- Boton calificación -->
-					<div class="bottom-left-user-mark container">
-						<button class="btn-info dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-							<img class = "estrellaComentarioUser" src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						</button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-							<li>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="score" id="inlineRadio1" value="1">
-									<label class="form-check-label" for="inlineRadio1">1</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="score" id="inlineRadio2" value="2">
-									<label class="form-check-label" for="inlineRadio2">2</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="score" id="inlineRadio3" value="3">
-									<label class="form-check-label" for="inlineRadio3">3</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="score" id="inlineRadio4" value="4">
-									<label class="form-check-label" for="inlineRadio4">4</label>
-								</div>
-								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio" name="score" id="inlineRadio5" value="5">
-									<label class="form-check-label" for="inlineRadio5">5</label>
-								</div>
-							</li>
-						</ul>
+							<!-- Boton calificación -->
+							<div class="bottom-left-user-mark container">
+								<button class="btn-info dropdown" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+									<img class = "estrellaComentarioUser" src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<li>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="score" id="inlineRadio1" value="1">
+											<label class="form-check-label" for="inlineRadio1">1</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="score" id="inlineRadio2" value="2">
+											<label class="form-check-label" for="inlineRadio2">2</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="score" id="inlineRadio3" value="3">
+											<label class="form-check-label" for="inlineRadio3">3</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="score" id="inlineRadio4" value="4">
+											<label class="form-check-label" for="inlineRadio4">4</label>
+										</div>
+										<div class="form-check form-check-inline">
+											<input class="form-check-input" type="radio" name="score" id="inlineRadio5" value="5">
+											<label class="form-check-label" for="inlineRadio5">5</label>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>	  
+						{% for mark in marks %}
+						<!-- Comentario -->
+						<div class="container comentarioBox comentariosPoema text-start mt-1">
+							<p>{{mark.user.name}}: <br>{{mark.comment}}</p>
+							<div class="bottom-left container">
+								<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
+								<div class="centeredComments calificacionComentarios">{{mark.score}}</div>
+							</div>
+						</div>
+						{% endfor %}
 					</div>
 				</div>
-
-				{% for mark in marks %}
-
-				<!-- Comentario -->
-				<div class="container comentarioBox comentariosPoema text-start mt-1">
-					<p>{{mark.user.name}}: <br>{{mark.comment}}</p>
-					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionComentarios">{{mark.score}}</div>
-					</div>
-				</div>
-
-				{% endfor %}
 			</div>
     	</div>
     </div>
