@@ -44,12 +44,36 @@ def poems():
 # Editar usuario
 @my.route('/edit', methods=['GET', 'POST'])
 def edit():
+
+    jwt = func.get_jwt()
+
     if(request.method == "POST"):
-        # Obtener el nuevo nickname y cambiar nombre de usuario.
-        nick = request.form.get("editar_nick")
-        func
-    else:
-        jwt = func.get_jwt()
+        if (jwt):
+            # Obtener el nuevo nickname
+            nick = request.form.get("editar_nick")
+            
+            
+            user = auth.load_user(jwt)
+
+            if nick != "":
+                # Cambiar nombre de usuario en la base de datos.
+                resp = func.put_username(user["id"], nick)
+
+                # Guardamos la información de usuario en una variable.
+                user_info = func.get_user_info(user["id"])
+                user_info = json.loads(user_info.text)
+
+                if (resp.ok):
+                    return render_template('user_config.html', jwt = jwt, user = user_info, success = "Nombre de usuario cambiado correctamente")
+                else:
+                    return render_template('user_config.html', jwt = jwt, user = user_info, error = "No se ha podido cambiar el nombre de usuario")
+            else:
+                # Guardamos la información de usuario en una variable.
+                user_info = func.get_user_info(user["id"])
+                user_info = json.loads(user_info.text)
+
+                return render_template('user_config.html', jwt = jwt, user = user_info, error = "El nombre de usuario no puede estar vacío")       
+    else:   
         if (jwt):
             user = auth.load_user(jwt)
 
@@ -58,8 +82,8 @@ def edit():
             user_info = json.loads(user_info.text)
 
             return render_template('user_config.html', jwt = jwt, user = user_info)
-        else:
-            return redirect(url_for('main.login'))
+    
+    return redirect(url_for('main.login'))
 
 # Eliminar cuenta del usuario
 @my.route('/delete')

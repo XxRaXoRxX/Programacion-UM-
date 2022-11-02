@@ -37,7 +37,7 @@ class User(Resource):
         claims = get_jwt()
 
         #Verifico si el id del usuario concuerda con el que realiza el deleteo o si es admin.
-        if (claims['id'] == id or claims['role'] == "admin"):
+        if (int(claims['id']) == int(id) or claims['role'] == "admin"):
             user = db.session.query(UserModel).get_or_404(id)
             db.session.delete(user)
             db.session.commit()
@@ -53,10 +53,12 @@ class User(Resource):
         claims = get_jwt()
 
         #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
-        if (claims['id'] == id): #or claims['role'] == "admin"):
+        if (int(claims['id']) == int(id) or claims['role'] == "admin"):
             user = db.session.query(UserModel).get_or_404(id)
             data = request.get_json().items()
             for key, value in data:
+                if (key == "password"):
+                    value = user.generate_password(value)
                 setattr(user, key, value)
             db.session.add(user)
             db.session.commit()

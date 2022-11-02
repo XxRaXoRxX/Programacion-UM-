@@ -62,6 +62,13 @@ def get_username(user_id):
     resp = requests.get(api_url, headers = headers)
     user = json.loads(resp.text)
     return user["name"]
+
+def put_username(user_id, name):
+    api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
+    data = {"id": user_id, "name": name}
+    headers = get_headers()
+
+    return requests.put(api_url, json = data, headers = headers)
 # -- User --
 
 # -- Marks --

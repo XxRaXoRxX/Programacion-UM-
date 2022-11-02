@@ -22,9 +22,9 @@ class User(db.Model):
     def plain_password(self):
         raise AttributeError('Password cant be read')
 
-    @plain_password.setter #En caso de escritura que genere el hash y lo ingrese a contraseña.
-    def plain_password(self, password):
-        self.password = generate_password_hash(password)
+    #En caso de escritura que genere el hash y lo ingrese a contraseña.
+    def generate_password(self, password):
+        return generate_password_hash(password)
 
     #Método que compara una contraseña en texto plano con el hash guardado en la base de datos
     def validate_pass(self,password):

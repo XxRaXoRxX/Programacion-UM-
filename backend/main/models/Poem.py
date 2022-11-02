@@ -89,4 +89,5 @@ class Poem(db.Model):
             for mark in self.marks:
                 score += mark.score
                 total += 1
-            return (score / total)
+            value = round(score/total, 2)
+            return value
