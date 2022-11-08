@@ -520,3 +520,19 @@
     scrollbar-color: #b490ca #F5F5F5;
 }
 /* ---------- Scrollbar ----------*/
+
+/* ---------- Alertas ----------*/
+.alert-success
+{
+	/*background-color: #00FF00 !important;
+	border-color: #00FF00 !important;
+	color: #000000 !important;*/
+}
+
+.alert-danger
+{
+	/*background-color: #FF0000 !important;
+	border-color: #FF0000 !important;
+	color: #000000 !important;*/
+}
+/* ---------- Alertas ----------*/

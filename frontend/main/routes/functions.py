@@ -69,6 +69,13 @@ def put_username(user_id, name):
     headers = get_headers()
 
     return requests.put(api_url, json = data, headers = headers)
+
+def put_password(user_id, password):
+    api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
+    data = {"id": user_id, "password": password}
+    headers = get_headers()
+
+    return requests.put(api_url, json = data, headers = headers)
 # -- User --
 
 # -- Marks --

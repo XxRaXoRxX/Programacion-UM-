@@ -52,7 +52,6 @@ def edit():
             # Obtener el nuevo nickname
             nick = request.form.get("editar_nick")
             
-            
             user = auth.load_user(jwt)
 
             if nick != "":
@@ -91,7 +90,35 @@ def delete():
     return render_template('delete_account.html')
 
 # Cambiar contraseña del usuario
-@my.route('/password')
+@my.route('/password', methods=['GET', 'POST'])
 def password():
-    return render_template('change_password.html')
+    jwt = func.get_jwt()
 
+    if(request.method == "POST"):
+        if (jwt):
+            # Obtener la nueva contraseña
+            actual_pass = request.form.get("actual_password")
+            new_pass = request.form.get("new_password")
+            
+            # Obtener datos del usuario
+            user = auth.load_user(jwt)
+            email = user["email"]
+
+            print(email, actual_pass)
+
+            if email != "" and actual_pass != "":
+                response = func.login(email, actual_pass)
+            
+                if (response.ok):
+                    # Cambiar contraseña en la base de datos.
+                    resp = func.put_password(user["id"], new_pass)
+
+                    if (resp.ok):
+                        return render_template('change_password.html', jwt = jwt, success = "Contraseña cambiada correctamente")
+                
+            return render_template('change_password.html', jwt = jwt, error = "No se ha podido cambiar la contraseña")
+    else:
+        if (jwt):
+            return render_template('change_password.html', jwt = jwt)
+    
+    return redirect(url_for('main.login'))

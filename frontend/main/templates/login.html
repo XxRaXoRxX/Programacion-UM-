@@ -67,4 +67,14 @@
 		<div class="col-sm-3"></div>
 	</div>
 
+	<div class="row mt-4 align-items-center">
+		<div class="container">
+			{% if error %}
+				<div class="alert alert-danger">
+					<strong>Contraseña ingresada Incorrecta!</strong>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
 {% endblock %}
