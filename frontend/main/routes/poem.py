@@ -22,28 +22,26 @@ def view(id):
             resp = func.post_mark(poem_id = id, score = score, comment = comment, user_id = user_id)
 
             # Obtener el poema y los comentarios.
-            poem, marks = get_poem_and_marks(id)
+            poem, marks = get_poem_and_marks(poem_id = id, jwt = jwt)
 
             if (resp.ok):
-                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, message = "Comentario publicado con éxito.")
+                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
             else:
                 # TODO: Mostrar error.
-                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, message = "Error al publicar el comentario.")
+                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, error = "Error al publicar el comentario.")
 
     else:
-        if (jwt):
-
             poem, marks = get_poem_and_marks(id)
             return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
 
     return redirect(url_for('main.login'))
 
-def get_poem_and_marks(poem_id):
+def get_poem_and_marks(poem_id, jwt = None):
     # Obtener el poema.
-    resp = func.get_poem(poem_id)
+    resp = func.get_poem(poem_id, jwt)
     poem = func.get_json(resp)
     # Obtener los comentarios.
-    resp = func.get_marks_by_poem_id(poem_id)
+    resp = func.get_marks(poem_id, jwt)
     marks = func.get_json(resp)
 
     return poem, marks

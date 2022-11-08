@@ -38,9 +38,14 @@ def create_poem(id, titulo_poema, cuerpo_poema):
 
     return requests.post(api_url, json = data, headers = headers)
 
-def get_poem(id):
+def get_poem(id, jwt = None):
     api_url = f'{current_app.config["API_URL"]}/poem/{id}'
-    headers = get_headers()
+    
+    # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
+    if (jwt):
+        headers = get_headers(jwt = jwt)
+    else:
+        headers = get_headers(without_token = True)
 
     return requests.get(api_url, headers = headers)
 # -- Poem --
@@ -79,11 +84,17 @@ def put_password(user_id, password):
 # -- User --
 
 # -- Marks --
-def get_marks_by_poem_id(poem_id):
+def get_marks(poem_id, jwt = None):
     api_url = f'{current_app.config["API_URL"]}/marks'
 
     data = {"poem_id": poem_id}
-    headers = get_headers()
+    
+    # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
+    if (jwt):
+        headers = get_headers(jwt = jwt)
+    else:
+        headers = get_headers(without_token = True)
+
     return requests.get(api_url, json = data, headers = headers)
 
 def post_mark(poem_id, score, comment, user_id):

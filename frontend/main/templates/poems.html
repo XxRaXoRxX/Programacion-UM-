@@ -50,7 +50,8 @@
 
 				<!-- Comentario de Usuario -->
 				<div class="card example-1 scrollbar-near-moon" style="height: 0px;">
-					<div class="card-body">		
+					<div class="card-body">
+						{% if jwt %}		
 						<div class="container comentarioBox comentariosPoema text-start mt-1">
 
 							<!-- Ingresar Comentario -->
@@ -93,7 +94,9 @@
 									</li>
 								</ul>
 							</div>
-						</div>	  
+						</div>	
+						{% endif %}
+						
 						{% for mark in marks %}
 						<!-- Comentario -->
 						<div class="container comentarioBox comentariosPoema text-start mt-1">
