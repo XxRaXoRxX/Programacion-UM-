@@ -8,18 +8,33 @@ import json
 main = Blueprint('main', __name__, url_prefix='/')
 
 # Ruta menu principal con poemas
-@main.route('/')
-def index(jwt = None):
+@main.route('/', methods=['GET', 'POST'])
+def index(jwt = None, from_login = False):
+
     if (jwt == None):
         jwt = func.get_jwt()
 
-    resp = func.get_poems(jwt = jwt)
+    if(request.method == "POST" and from_login == False):
+        filter_title = request.form.get("filter_title")
+        filter_author = request.form.get("filter_author")
+        filter_rating = request.form.get("filter_rating")
 
-    # Guardamos los poemas en una variable.
-    poems = func.get_json(resp)
-    poemsList = poems["poems"]
+        # Obtener los poemas.
+        resp = func.get_poems_by_fiters(title= filter_title, author= filter_author, rating= filter_rating)
 
-    return render_template('main.html', jwt = jwt, poems = poemsList)
+        # Guardamos los poemas en una variable.
+        poems = func.get_json(resp)
+        poemsList = poems["poems"]
+
+        return render_template('main.html', jwt = jwt, poems = poemsList)
+    else:
+        resp = func.get_poems(jwt = jwt)
+
+        # Guardamos los poemas en una variable.
+        poems = func.get_json(resp)
+        poemsList = poems["poems"]
+
+        return render_template('main.html', jwt = jwt, poems = poemsList)
 
 # Ruta menu principal con poemas
 @main.route('/login', methods=['GET', 'POST'])
@@ -38,7 +53,7 @@ def login():
                 token = response["access_token"]
 
                 # Guardar el token en las cookies y devuelve la página.
-                resp = make_response(index(jwt=token))
+                resp = make_response(index(jwt=token, from_login= True))
                 #resp = make_response(redirect(url_for('main.index'), token))
                 resp.set_cookie("access_token", token)
                 return resp
