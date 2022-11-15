@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, url_for, render_template, request, current_app
+from flask import Blueprint, redirect, url_for, render_template, request, current_app, make_response
 from . import functions as func
 from . import auth as auth
 import requests
@@ -8,13 +8,13 @@ poem = Blueprint('poem', __name__, url_prefix='/poem')
 
 # Ver un poema determinado.
 @poem.route('/view/<int:id>', methods=['GET', 'POST', 'DELETE'])
-def view(id, from_edit = False):
+def view(id):
 
     jwt = func.get_jwt()
     user = auth.load_user(jwt)
 
     # Borrar el poema.
-    if (request.method == "POST" and request.form.get("_method") == "DELETE" and from_edit == False):
+    if (request.method == "POST" and request.form.get("_method") == "DELETE"):
         if (jwt):
             # Eliminar poema.
             resp = func.delete_poem(poem_id = id, jwt = jwt)
@@ -27,7 +27,7 @@ def view(id, from_edit = False):
                 return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al eliminar el poema.")
 
     # Postear comentario.
-    elif (request.method == "POST" and from_edit == False):
+    elif (request.method == "POST"):
         if (jwt):
             score = request.form.get("score")
             comment = request.form.get("comentario")
@@ -108,7 +108,7 @@ def edit(id):
                                       cuerpo_poema = cuerpo_poema)
 
                 if (resp.ok):
-                    return view(id, from_edit = True)
+                    return make_response(redirect(url_for('poem.view', id=id)))
                 else:
                     # TODO: Mostrar mensaje de error al crear poema.
                     poem = func.get_poem(id, jwt)

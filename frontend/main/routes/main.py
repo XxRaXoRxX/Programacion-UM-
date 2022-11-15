@@ -9,12 +9,12 @@ main = Blueprint('main', __name__, url_prefix='/')
 
 # Ruta menu principal con poemas
 @main.route('/', methods=['GET', 'POST'])
-def index(jwt = None, from_login = False):
+def index(jwt = None):
 
     if (jwt == None):
         jwt = func.get_jwt()
 
-    if(request.method == "POST" and from_login == False):
+    if(request.method == "POST"):
         filter_title = request.form.get("filter_title")
         filter_author = request.form.get("filter_author")
         filter_rating = request.form.get("filter_rating")
@@ -53,7 +53,7 @@ def login():
                 token = response["access_token"]
 
                 # Guardar el token en las cookies y devuelve la página.
-                resp = make_response(index(jwt=token, from_login= True))
+                resp = make_response(redirect(url_for('main.index')))
                 #resp = make_response(redirect(url_for('main.index'), token))
                 resp.set_cookie("access_token", token)
                 return resp
