@@ -58,6 +58,13 @@ def create_poem(id, titulo_poema, cuerpo_poema):
 
     return requests.post(api_url, json = data, headers = headers)
 
+def edit_poem(id, titulo_poema, cuerpo_poema):
+    api_url = f'{current_app.config["API_URL"]}/poem/{id}'
+    data = {"title":titulo_poema, "body":cuerpo_poema}
+    headers = get_headers()
+
+    return requests.put(api_url, json = data, headers = headers)
+
 def get_poem(id, jwt = None):
     api_url = f'{current_app.config["API_URL"]}/poem/{id}'
     
@@ -68,6 +75,17 @@ def get_poem(id, jwt = None):
         headers = get_headers(without_token = True)
 
     return requests.get(api_url, headers = headers)
+
+def delete_poem(poem_id, jwt = None):
+    api_url = f'{current_app.config["API_URL"]}/poem/{poem_id}'
+    
+    # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
+    if (jwt):
+        headers = get_headers(jwt = jwt)
+    else:
+        headers = get_headers(without_token = True)
+
+    return requests.delete(api_url, headers = headers)
 # -- Poem --
 
 # -- User --
@@ -85,7 +103,7 @@ def get_username(user_id):
     headers = get_headers()
 
     resp = requests.get(api_url, headers = headers)
-    user = json.loads(resp.text)
+    user = get_json(resp)
     return user["name"]
 
 def put_username(user_id, name):

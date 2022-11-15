@@ -32,6 +32,25 @@ class Poem(Resource):
             return poem.to_json_user()
         else:
             return poem.to_json()
+
+    @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token
+    def put(self, id):
+
+        #Obtener claims de adentro del JWT
+        claims = get_jwt()
+
+        poem = db.session.query(PoemModel).get_or_404(id)
+
+        #Verifico si el id del usuario concuerda con el que realiza la modificación o si es admin.
+        if (claims['id'] == poem.userID or claims['role'] == "admin"):
+            data = request.get_json().items()
+            for key, value in data:
+                setattr(poem, key, value)
+            db.session.add(poem)
+            db.session.commit()
+            return poem.to_json_user(), 201
+        else:
+            return 'No tiene rol', 403 #La solicitud no incluye información de autenticación
     
     #Eliminar un Poema
     @jwt_required() #Requisito de admin o usuario para ejecutar esta función. Obligatorio Token

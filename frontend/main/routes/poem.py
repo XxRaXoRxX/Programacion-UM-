@@ -7,32 +7,44 @@ import requests
 poem = Blueprint('poem', __name__, url_prefix='/poem')
 
 # Ver un poema determinado.
-@poem.route('/view/<int:id>', methods=['GET', 'POST'])
-def view(id):
+@poem.route('/view/<int:id>', methods=['GET', 'POST', 'DELETE'])
+def view(id, from_edit = False):
 
     jwt = func.get_jwt()
+    user = auth.load_user(jwt)
 
-    if(request.method == "POST"):
+    # Borrar el poema.
+    if (request.method == "POST" and request.form.get("_method") == "DELETE" and from_edit == False):
         if (jwt):
-            # Postear comentario.
-            user = auth.load_user(jwt)
-            user_id = user["id"]
+            # Eliminar poema.
+            resp = func.delete_poem(poem_id = id, jwt = jwt)
+
+            if (resp.ok):
+                return redirect(url_for('main.index'))
+            else:
+                # TODO: Mostrar error.
+                poem, marks = get_poem_and_marks(id, jwt = jwt)
+                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al eliminar el poema.")
+
+    # Postear comentario.
+    elif (request.method == "POST" and from_edit == False):
+        if (jwt):
             score = request.form.get("score")
             comment = request.form.get("comentario")
-            resp = func.post_mark(poem_id = id, score = score, comment = comment, user_id = user_id)
+            resp = func.post_mark(poem_id = id, score = score, comment = comment, user = user)
 
             # Obtener el poema y los comentarios.
             poem, marks = get_poem_and_marks(poem_id = id, jwt = jwt)
 
             if (resp.ok):
-                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
+                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
             else:
                 # TODO: Mostrar error.
-                return render_template('poems.html', jwt = jwt, poem = poem, marks = marks, error = "Error al publicar el comentario.")
+                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario.")
 
     else:
-            poem, marks = get_poem_and_marks(id)
-            return render_template('poems.html', jwt = jwt, poem = poem, marks = marks)
+        poem, marks = get_poem_and_marks(id, jwt = jwt)
+        return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks)
 
     return redirect(url_for('main.login'))
 
@@ -76,5 +88,37 @@ def create():
     else:
         if (jwt):
             return render_template('create_poem.html', jwt = jwt)
+
+    return redirect(url_for('main.login'))
+
+# Editar un poema.
+@poem.route('/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    jwt = func.get_jwt()
+
+    # Editar el poema.
+    if (request.method == "POST"):
+        if (jwt):
+            titulo_poema = request.form.get("titulo_poema")
+            cuerpo_poema = request.form.get("cuerpo_poema")
+
+            if titulo_poema != "" and cuerpo_poema != "":
+                resp = func.edit_poem(id = id, 
+                                      titulo_poema = titulo_poema, 
+                                      cuerpo_poema = cuerpo_poema)
+
+                if (resp.ok):
+                    return view(id, from_edit = True)
+                else:
+                    # TODO: Mostrar mensaje de error al crear poema.
+                    poem = func.get_poem(id, jwt)
+                    poem = func.get_json(poem)
+                    return render_template("edit_poem.html", jwt = jwt, poem = poem, error = "Error al editar el poema.")
+
+    else:
+        poem = func.get_poem(id, jwt)
+        poem = func.get_json(poem)
+        print(poem)
+        return render_template('edit_poem.html', jwt = jwt, poem = poem)
 
     return redirect(url_for('main.login'))

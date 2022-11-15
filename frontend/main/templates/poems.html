@@ -2,52 +2,85 @@
 
 {% block content %}
 
-<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
-    	<!-- Titulo del poema, autor y Menu -->
-    	<div class="row mt-2 align-items-center text-center">
-			<!-- Titulo del poema -->
-			<div class="col-sm-6">
-				<p class = "tituloPoema float-start">
-					{{poem.title}}
-				</p>
-			</div>
+	<!-- Titulo del poema, autor y Menu -->
+	<div class="row mt-2 align-items-center text-center">
+		<!-- Titulo del poema -->
+		
+		{% if user.rol == "admin" or (user.rol == "user" and user.id == poem.user.id) %}
+		<div class="col-sm-5">
+			<p class = "tituloPoema float-start">
+				{{poem.title}}
+			</p>
+		</div>
 
-			<!-- Autor -->
-			<div class="col-sm-4">
-				<p class = "tituloPoema float-start" style="font-size: 50px;">
-					Autor: {{poem.user.name}}
-				</p>
-			</div>
+		{% else %}
+		<div class="col-sm-6">
+			<p class = "tituloPoema float-start">
+				{{poem.title}}
+			</p>
+		</div>
+		{% endif %}
 
-			<!-- Menu -->
-			<div class="col-sm-2">
-				<a href="{{url_for('main.index')}}">
-					<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
-						<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">
-							<span class="flechaCancelar float-start"><-</span>Menu
-						</p>
-					</button>
-				</a>
-			</div>
-    	</div>
+		<!-- Autor -->
+		<div class="col-sm-4">
+			<p class = "tituloPoema float-start" style="font-size: 50px;">
+				Autor: {{poem.user.name}}
+			</p>
+		</div>
 
-    	<!-- Cuerpo Poema-->
-    	<div class="row text-center">
-			<!-- Cuerpo del Poema -->
-			<div class="col-sm-8">
-				<div class="container cuerpoBox cuerpoPoema text-start float-start">
-					<p>
-						{{poem.body}}
+		<!-- Boton DELETE -->
+		{% if user.rol == "admin" %}
+		<div class="col-sm-1">
+			<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
+				<input type="hidden" name="_method" id="methodCall" value="DELETE">
+				<button type="submit" class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
+					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">X</p>
+				</button>
+			</form>
+		</div>
+
+		<!-- Boton EDITAR -->
+		{% elif user.rol == "user" and user.id == poem.user.id %}
+		<div class="col-sm-1">
+			<a href="{{url_for('poem.edit',id=poem.id)}}">
+				<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
+					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">Edit</p>
+				</button>
+			</a>
+		</div>
+
+		{% endif %}
+
+		<!-- Menu -->
+		<div class="col-sm-2">
+			<a href="{{url_for('main.index')}}">
+				<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
+					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">
+						<span class="flechaCancelar float-start"><-</span>Menu
 					</p>
-					<div class="bottom-left container">
-						<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
-						<div class="centeredComments calificacionMenu"> {{poem.marksAvrg}} </div>
-					</div>
+				</button>
+			</a>
+		</div>
+	</div>
+
+	<!-- Cuerpo Poema-->
+	<div class="row text-center">
+		<!-- Cuerpo del Poema -->
+		<div class="col-sm-8">
+			<div class="container cuerpoBox cuerpoPoema text-start float-start">
+				<p>
+					{{poem.body}}
+				</p>
+				<div class="bottom-left container">
+					<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
+					<div class="centeredComments calificacionMenu"> {{poem.marksAvrg}} </div>
 				</div>
 			</div>
-			<!-- Comentarios -->
-			<div class="col-sm-4 overflow">
+		</div>
+		<!-- Comentarios -->
+		<div class="col-sm-4 overflow">
 
+			<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
 				<!-- Comentario de Usuario -->
 				<div class="card example-1 scrollbar-near-moon" style="height: 0px;">
 					<div class="card-body">
@@ -95,6 +128,7 @@
 								</ul>
 							</div>
 						</div>	
+					
 						{% endif %}
 						
 						{% for mark in marks %}
@@ -109,9 +143,8 @@
 						{% endfor %}
 					</div>
 				</div>
-			</div>
-    	</div>
-    </div>
-</form>
+			</form>
+		</div>
+	</div>
 
 {% endblock %}
