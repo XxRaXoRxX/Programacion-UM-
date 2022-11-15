@@ -31,7 +31,7 @@ def view(id):
         if (jwt):
             score = request.form.get("score")
             comment = request.form.get("comentario")
-            resp = func.post_mark(poem_id = id, score = score, comment = comment, user = user)
+            resp = func.post_mark(poem_id = id, score = score, comment = comment, user_id = user["id"])
 
             # Obtener el poema y los comentarios.
             poem, marks = get_poem_and_marks(poem_id = id, jwt = jwt)
@@ -81,7 +81,7 @@ def create():
                     # Traer poema y mostrarlo.
                     resp = func.get_json(response)
                     id = resp["id"]
-                    return view(id)
+                    return make_response(redirect(url_for('poem.view', id=id)))
             
             # TODO: Mostrar mensaje de error al crear poema.
             return render_template("create_poem.html", jwt = jwt)
