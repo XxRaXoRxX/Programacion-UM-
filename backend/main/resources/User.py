@@ -100,7 +100,7 @@ class Users(Resource):
         return jsonify({"users":[user.to_json() for user in users.items],
         "total": users.total, "pages": users.pages, "page": page})
 
-    @admin_required #Solo admines pueden acceder.
+    @jwt_required(optional = True) #Requsitos tanto de usuario como no.
     #Agregar un nuevo Usuario en la lista
     def post(self):
         user = UserModel.from_json(request.get_json())

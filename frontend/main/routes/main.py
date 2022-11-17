@@ -44,7 +44,7 @@ def login():
         email = request.form.get("email")
         password = request.form.get("contraseña")
 
-        if email != None and password != None:
+        if email != "" and password != "":
             response = func.login(email, password)
             
             if (response.ok):
@@ -62,6 +62,28 @@ def login():
         return render_template("login.html", error = "Usuario y contraseña incorrectos")
     else:
         return render_template("login.html")
+
+# Ruta menu principal con poemas
+@main.route('/register', methods=['GET', 'POST'])
+def register():
+    if(request.method == "POST"):
+        # Obtener password y email
+        email = request.form.get("email")
+        password = request.form.get("contraseña")
+        name = request.form.get("nombre")
+
+        if email != "" and password != "" and name != "":
+            response = func.register(name, email, password)
+            
+            if (response.ok):
+                # Lo manda a la pagina del login.
+                resp = render_template("login.html", success = "Usuario registrado correctamente")
+                return resp
+
+        # TODO: Mostrar mensaje de error de logueo.
+        return render_template("register.html", error = "Datos ingresados incorrectos")
+    else:
+        return render_template("register.html")
 
 @main.route('/logout')
 def logout():

@@ -19,7 +19,7 @@ class User(db.Model):
         return f"<Professor: {self.name} {self.password} {self.rol} {self.email} >"
 
     @property #En caso de lectura, le de un error.
-    def plain_password(self):
+    def generate_password(self):
         raise AttributeError('Password cant be read')
 
     #En caso de escritura que genere el hash y lo ingrese a contraseña.
@@ -77,7 +77,7 @@ class User(db.Model):
         email = user_json.get('email')
         return User(id=id,
                     name=name,
-                    plain_password=password,
+                    password=generate_password_hash(password),
                     rol=rol,
                     email=email
                     )

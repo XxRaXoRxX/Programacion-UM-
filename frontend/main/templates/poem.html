@@ -14,7 +14,7 @@
 		</div>
 
 		{% else %}
-		<div class="col-sm-6">
+		<div class="col-sm-5">
 			<p class = "tituloPoema float-start">
 				{{poem.title}}
 			</p>
@@ -22,25 +22,24 @@
 		{% endif %}
 
 		<!-- Autor -->
-		<div class="col-sm-4">
+		<div class="col-sm-3">
 			<p class = "tituloPoema float-start" style="font-size: 50px;">
 				Autor: {{poem.user.name}}
 			</p>
 		</div>
 
 		<!-- Boton DELETE -->
-		{% if user.rol == "admin" %}
+		{% if user.rol == "user" and user.id == poem.user.id or user.rol == "admin" %}
 		<div class="col-sm-1">
 			<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
 				<input type="hidden" name="_method" id="methodCall" value="DELETE">
 				<button type="submit" class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">
-					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">X</p>
+					<p class = "contenidoConfigWhite float-center" style="font-size: 50px;">Del</p>
 				</button>
 			</form>
 		</div>
 
 		<!-- Boton EDITAR -->
-		{% elif user.rol == "user" and user.id == poem.user.id %}
 		<div class="col-sm-1">
 			<a href="{{url_for('poem.edit',id=poem.id)}}">
 				<button class="btn-danger" style="height: 90px;" type="button" id="ChangePassword" aria-expanded="false">

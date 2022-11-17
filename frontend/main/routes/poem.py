@@ -16,15 +16,21 @@ def view(id):
     # Borrar el poema.
     if (request.method == "POST" and request.form.get("_method") == "DELETE"):
         if (jwt):
-            # Eliminar poema.
-            resp = func.delete_poem(poem_id = id, jwt = jwt)
 
-            if (resp.ok):
-                return redirect(url_for('main.index'))
+            poem, marks = get_poem_and_marks(id, jwt = jwt)
+
+            if (request.form.get("_delete") == "yes"):
+                # Eliminar poema.
+                resp = func.delete_poem(poem_id = id, jwt = jwt)
+
+                if (resp.ok):
+                    return redirect(url_for('main.index'))
+                else:
+                    # TODO: Mostrar error.
+                    return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al eliminar el poema.")
             else:
-                # TODO: Mostrar error.
-                poem, marks = get_poem_and_marks(id, jwt = jwt)
-                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al eliminar el poema.")
+                return render_template("delete_poem.html", jwt = jwt, poem = poem)
+            
 
     # Postear comentario.
     elif (request.method == "POST"):
@@ -37,14 +43,14 @@ def view(id):
             poem, marks = get_poem_and_marks(poem_id = id, jwt = jwt)
 
             if (resp.ok):
-                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
+                return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
             else:
                 # TODO: Mostrar error.
-                return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario.")
+                return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario.")
 
     else:
         poem, marks = get_poem_and_marks(id, jwt = jwt)
-        return render_template('poems.html', jwt = jwt, user = user, poem = poem, marks = marks)
+        return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks)
 
     return redirect(url_for('main.login'))
 

@@ -2,13 +2,27 @@
 
 {% block content %}
 
-	<form method="POST" action="{{url_for('main.login')}}">
-    	<!-- Titulo Logueo -->
+	<form method="POST" action="{{url_for('main.register')}}">
+    	<!-- Titulo Registro -->
     	<div class="row mt-2 align-items-center text-center">
 			<div class="col-sm-12">
 				<p class = "tituloConfig">
-					<b>Loguearse en Poems Online</b>
+					<b>Registrarse en Poems Online</b>
 				</p>
+			</div>
+    	</div>
+
+		<!-- Nick name -->
+    	<div class="row mt-2 text-center">
+			<!-- Texto -->
+			<div class="col-sm-4">
+				<p class = "contenidoConfig float-end">
+					Nombre
+				</p>
+			</div>
+			<!-- Formulario -->
+			<div class="col-sm-7">
+				<input class="form-control-lg text-center contenidoConfig float-start" type="text" name="nombre" id="exampleInputEmail" placeholder="Ingresar nombre">
 			</div>
     	</div>
 
@@ -26,7 +40,7 @@
 			</div>
     	</div>
 
-		<!-- Contraseña -->
+		<!-- Contraseña Nueva-->
     	<div class="row mt-2 text-center">
 			<!-- Texto -->
 			<div class="col-sm-4">
@@ -40,24 +54,13 @@
 			</div>
     	</div>
 
-		<!-- Registro -->
-		<div class="row mt-2 text-center">
-			<div class="row mt-2 align-items-center text-center">
-				<div class="col-sm-12">
-					<p class = "contenidoConfig">
-						<b>Si no posees cuenta, <a href="{{url_for('main.register')}}">registrate!!</a></b>
-					</p>
-				</div>
-			</div>
-    	</div>
-
 		<!-- Loguearse-->
     	<div class="row mt-4 align-items-center">
 			<div class="col-sm-3"></div>
 			<!-- Boton -->
 			<div class="col-sm-6">
 				<button type="submit" class="btn-light btn-lg" type="button" id="LogIn" aria-expanded="false">
-					<font class = "contenidoConfig">Iniciar Sesión</font>
+					<font class = "contenidoConfig">Registrarse</font>
 				</button>
 			</div>
 			<div class="col-sm-3"></div>
@@ -69,7 +72,7 @@
 		<div class="col-sm-3"></div>
 		<!-- Boton -->
 		<div class="col-sm-6">
-			<a href = "{{url_for('main.index')}}">
+			<a href = "{{url_for('main.login')}}">
 				<button class="btn-danger btn-lg" type="button" id="ChangePassword" aria-expanded="false">
 					<font class = "contenidoConfigWhite">Cancelar</font>
 				</button>
@@ -82,11 +85,7 @@
 		<div class="container">
 			{% if error %}
 				<div class="alert alert-danger">
-					<strong>Contraseña ingresada Incorrecta!</strong>
-				</div>
-			{% elif success %}
-				<div class="alert alert-success">
-					<strong>Cuenta creada con exito!</strong>
+					<strong>Registro Incorrecto!</strong>
 				</div>
 			{% endif %}
 		</div>

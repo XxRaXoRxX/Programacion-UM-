@@ -174,7 +174,7 @@ class Poems(Resource):
                     if value == "mark[desc]":
                         poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).order_by(func.count(MarkModel.score).desc())
                 
-        poems = poems.paginate(page, perpage, True, 10)
+        poems = poems.paginate(page=page, per_page=perpage, error_out=False)
         return jsonify({"poems":[poem.to_json() for poem in poems.items],
         "total": poems.total, "pages": poems.pages, "page": page})
 
@@ -196,7 +196,7 @@ class Poems(Resource):
                 if key == "perpage":
                     perpage = int(value)
 
-        poems = poems.paginate(page, perpage, True, 10)
+        poems = poems.paginate(page=page, per_page=perpage, error_out=False)
         return jsonify({"poems":[poem.to_json() for poem in poems.items],
         "total": poems.total, "pages": poems.pages, "page": page})
 

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<form method="POST" action="{{url_for('poem.view',id=poem.id)}}">
+		<input type="hidden" name="_method" id="methodCall" value="DELETE">
+		<input type="hidden" name="_delete" id="methodCall" value="yes">
+		<!-- Espacio Vacio-->
+		<div class="row mt-5"></div>
+
+		<!-- Texto advertencia-->
+    	<div class="row mt-5 align-items-center text-center">
+			<div class="col-sm-12">
+				<p class = "tituloConfig">
+					<b>Estas seguro que</b>
+				</p>
+				<p class = "tituloConfig">
+					<b>quieres <span style="color: #ff0000">ELIMINAR</span> el poema?</b>
+				</p>
+			</div>
+    	</div>
+
+		<!-- Eliminar-->
+		<div class="row mt-4 align-items-center">
+			<div class="col-sm-3"></div>
+			<!-- Boton -->
+			<div class="col-sm-6">
+				<button type="submit" class="btn-danger btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+					<font class = "contenidoConfigWhite">Eliminar</font>
+				</button>
+			</div>
+			<div class="col-sm-3"></div>
+    	</div>
+
+		<!-- Cancelar-->
+    	<div class="row mt-4 align-items-center">
+			<div class="col-sm-3"></div>
+			<!-- Boton -->
+			<div class="col-sm-6">
+				<a href="{{url_for('poem.view',id=poem.id)}}">
+					<button class="btn-light btn-lg" type="button" id="ChangePassword" aria-expanded="false">
+						<font class = "contenidoConfig">Cancelar</font>
+					</button>
+				</a>
+			</div>
+			<div class="col-sm-3"></div>
+    	</div>
+	</form>
+
+{% endblock %}
