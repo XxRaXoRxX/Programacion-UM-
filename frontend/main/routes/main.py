@@ -14,27 +14,53 @@ def index(jwt = None):
     if (jwt == None):
         jwt = func.get_jwt()
 
-    if(request.method == "POST"):
-        filter_title = request.form.get("filter_title")
-        filter_author = request.form.get("filter_author")
-        filter_rating = request.form.get("filter_rating")
+    # Filtros
+    filter_title = request.form.get("filter_title")
+    filter_author = request.form.get("filter_author")
+    filter_rating = request.form.get("filter_rating")
+
+    # Paginacion
+    try:
+        page = int(request.form.get("_page"))
+    except:
+        page = request.form.get("_page")
+        if (page == "< Atras"):
+            page = int(func.get_poems_page()) - 1
+        elif (page == "Siguiente >"):
+            page = int(func.get_poems_page()) + 1
+        else:
+            page = func.get_poems_page()
+            if (page == None):
+                page = 1
+            else:
+                page = int(page)
+
+    if(request.method == "POST" and (filter_title != "" or filter_author != "" or filter_rating != None)):
+        
 
         # Obtener los poemas.
-        resp = func.get_poems_by_fiters(title= filter_title, author= filter_author, rating= filter_rating)
+        resp = func.get_poems_by_fiters(title= filter_title, 
+                                        author= filter_author, 
+                                        rating= filter_rating, 
+                                        page = page)
 
-        # Guardamos los poemas en una variable.
-        poems = func.get_json(resp)
-        poemsList = poems["poems"]
-
-        return render_template('main.html', jwt = jwt, poems = poemsList)
     else:
-        resp = func.get_poems(jwt = jwt)
-
-        # Guardamos los poemas en una variable.
-        poems = func.get_json(resp)
-        poemsList = poems["poems"]
-
-        return render_template('main.html', jwt = jwt, poems = poemsList)
+        # Mostrar poemas de otros usuario.
+        resp = func.get_poems(jwt = jwt, page = int(page))
+            
+            
+    # Guardamos los poemas en una variable.
+    poems = func.get_json(resp)
+    poemsList = poems["poems"]
+    resp = make_response(render_template('main.html', 
+                                         jwt = jwt, 
+                                         poems = poemsList, 
+                                         page = int(page),
+                                         filter_title = filter_title,
+                                         filter_author = filter_author,
+                                         filter_rating = filter_rating))
+    resp.set_cookie("poems_page", str(page))
+    return resp
 
 # Ruta menu principal con poemas
 @main.route('/login', methods=['GET', 'POST'])

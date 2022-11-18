@@ -14,7 +14,7 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<li>
 						<div class="form-group-center">
-							<input type="text" name="filter_title" id="texto" placeholder="Ingresar Tìtulo a Filtrar" class="form-control">
+							<input type="text" name="filter_title" id="texto" placeholder="Ingresar Tìtulo a Filtrar" class="form-control" {% if filter_title %} value="{{filter_title}}" {% endif %}>
 							<button type="submit" type="button" class="btn btn-secundary">Filtrar</button>
 						</div>
 					</li>
@@ -28,7 +28,7 @@
 					<li>
 						<li>
 							<div class="form-group">
-								<input type="text" name="filter_author" id="texto" placeholder="Ingresar Autor a Filtrar" class="form-control">
+								<input type="text" name="filter_author" id="texto" placeholder="Ingresar Autor a Filtrar" class="form-control" {% if filter_author %} value="{{filter_author}}" {% endif %}>
 								<button type="submit" type="button" class="btn btn-secundary">Filtrar</button>
 							</div>
 						</li>
@@ -42,23 +42,23 @@
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					<li>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio1" value="1">
+							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio1" value="1" {% if filter_rating == "1" %} checked {% endif %}>
 							<label class="form-check-label" for="inlineRadio1">1</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio2" value="2">
+							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio2" value="2" {% if filter_rating == "2" %} checked {% endif %}>
 							<label class="form-check-label" for="inlineRadio2">2</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio3" value="3">
+							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio3" value="3" {% if filter_rating == "3" %} checked {% endif %}>
 							<label class="form-check-label" for="inlineRadio3">3</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio4" value="4">
+							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio4" value="4" {% if filter_rating == "4" %} checked {% endif %}>
 							<label class="form-check-label" for="inlineRadio4">4</label>
 						</div>
 						<div class="form-check form-check-inline">
-							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio5" value="5">
+							<input class="form-check-input" type="radio" name="filter_rating" id="inlineRadio5" value="5" {% if filter_rating == "5" %} checked {% endif %}>
 							<label class="form-check-label" for="inlineRadio5">5</label>
 						</div>
 						<button type="submit" type="button" class="btn btn-secundary">Filtrar</button>
@@ -66,7 +66,6 @@
 				</ul>
 			</div>
 		</div>
-	</form>
 
 		<!-- Fila Poema -->
 		<tbody>
@@ -111,14 +110,23 @@
 		<!-- Paginación -->
 		<nav class = "mt-3" aria-label="Page navigation example">
 			<ul class="pagination justify-content-center">
-			<li class="page-item"><a class="page-link" href="#">< Atras</a></li>
-			<li class="page-item"><a class="page-link" href="#">1</a></li>
-			<li class="page-item"><a class="page-link" href="#">2</a></li>
-			<li class="page-item"><a class="page-link" href="#">3</a></li>
-			<li class="page-item"><a class="page-link" href="#">...</a></li>
-			<li class="page-item"><a class="page-link" href="#">Siguiente ></a></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="< Atras" {% if page == 1 %} hidden {% endif %}></li>
+			
+			{% if page < 3 %}
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="1"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="2"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="3"/></li>
+			{% else %}
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="{{page - 2}}"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="{{page - 1}}"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="{{page}}"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="{{page + 1}}"/></li>
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="{{page + 2}}"/></li>
+			{% endif %}
+			
+			<li class="page-item"><input type="submit" class="page-link" name="_page" value="Siguiente >"/></li>
 			</ul>
 		</nav>
-	</div>
+	</form>
 
 {% endblock %}

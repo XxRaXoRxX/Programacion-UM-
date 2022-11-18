@@ -48,6 +48,9 @@ def get_poems_by_fiters(title = "", author = "", rating = None, page = 1, perpag
 
     # Creamos el response y le enviamos el data y headers.
     return requests.get(api_url, json = data, headers = headers)
+
+def get_poems_page():
+    return request.cookies.get("poems_page")
 # -- Poems --
 
 # -- Poem --
