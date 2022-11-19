@@ -158,7 +158,10 @@ class Poems(Resource):
                 # Traer poemas por rating
                 if key == "rating":
                     #poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).having(func.avg(MarkModel.score)).like(int(value))
-                    poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).having(func.avg(MarkModel.score).between(int(value), int(value)+1))
+                    if (int(value) == 0):
+                        poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).having(MarkModel.score == None)
+                    else:
+                        poems = poems.outerjoin(PoemModel.marks).group_by(PoemModel.id).having(func.avg(MarkModel.score).between(int(value), int(value) + 0.99))
                 # Ordenar toda la tabla de poemas ordenados por:
                 if key == "sort_by":
                     # Ordenado por tiempo
