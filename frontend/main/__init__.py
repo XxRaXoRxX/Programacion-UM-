@@ -13,7 +13,11 @@ def create_app():
     #Cargar variables de entorno
     load_dotenv()
 
+    #Cargar API_URL del backend
     app.config["API_URL"] = os.getenv("API_URL")
+
+    #Cargar clave secreta de JWT
+    app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY')
 
     login_manager.init_app(app)
 

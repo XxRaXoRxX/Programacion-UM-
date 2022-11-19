@@ -1,6 +1,7 @@
 
 from .. import login_manager
 import jwt
+from flask import current_app
 
 @login_manager.user_loader
 def load_user(token):
@@ -18,3 +19,16 @@ def load_user(token):
         print('Invalid Token')
     except jwt.exceptions.DecodeError:
         print('Decode Error')
+
+def check_jwt_expiration(token):
+    try:
+        header_data = jwt.get_unverified_header(token)
+        key = current_app.config['JWT_SECRET_KEY']
+        jwt.decode(token, key = key, algorithms = header_data["alg"])
+        return False
+    # Token Expirado
+    except jwt.ExpiredSignatureError:
+        return True
+    # Token Invalido
+    except jwt.InvalidSignatureError:
+        return True

@@ -184,6 +184,11 @@ def get_headers(without_token = False, jwt = None):
         return {"Content-Type" : "application/json"}
 
 def get_jwt():
-    return request.cookies.get("access_token")
+    token = request.cookies.get("access_token")
+    expired = auth.check_jwt_expiration(token)
+    if (expired):
+        return None
+    else:
+        return token
 # -- Auth --
 
