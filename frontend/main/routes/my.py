@@ -25,19 +25,55 @@ def index():
         return redirect(url_for('main.login'))
 
 # Ver poemas del usuario
-@my.route('/poems')
+@my.route('/poems', methods=['GET', 'POST'])
 def poems():
 
     jwt = func.get_jwt()
     if (jwt):
+
+        # Filtros
+        filter_title = request.form.get("filter_title")
+        filter_rating = request.form.get("filter_rating")
+
+        # Usuario
         user = auth.load_user(jwt)
-        resp = func.get_poems_by_id(user["id"])
+
+        # Paginacion
+        try:
+            page = int(request.form.get("_page"))
+        except:
+            page = request.form.get("_page")
+            if (page == "< Atras"):
+                page = int(func.get_poems_page()) - 1
+            elif (page == "Siguiente >"):
+                page = int(func.get_poems_page()) + 1
+            else:
+                page = func.get_poems_page()
+                if (page == None):
+                    page = 1
+                else:
+                    page = int(page)
+
+        if(request.method == "POST" and (filter_title != "" or filter_rating != None)):
+            # Obtener los poemas.
+            resp = func.get_poems_by_id(id = user["id"],
+                                        title = filter_title, 
+                                        rating = filter_rating, 
+                                        page = page)
+
+        else:
+            resp = func.get_poems_by_id(id = user["id"], page = page)
 
         # Guardamos los poemas en una variable.
         poems = json.loads(resp.text)
         poemsList = poems["poems"]
 
-        return render_template('user_poems.html', jwt = jwt, poems = poemsList)
+        return render_template('user_poems.html', 
+                                jwt = jwt, 
+                                poems = poemsList, 
+                                page = page,
+                                filter_title = filter_title,
+                                filter_rating = filter_rating)
     else:
         return redirect(url_for('main.login'))
 

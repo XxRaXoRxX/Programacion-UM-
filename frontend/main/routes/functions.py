@@ -4,10 +4,13 @@ import json
 from . import auth
 
 # -- Poems --
-def get_poems_by_id(id, page = 1, perpage = 3):
+def get_poems_by_id(id, title = "", rating = None, page = 1, perpage = 3):
     api_url = f'{current_app.config["API_URL"]}/poems'
     # Envio de la pagina y cuantos datos por pagina.
-    data = {"page": page, "perpage": perpage, "userID": id}
+    if (rating == None):
+        data = {"page": page, "perpage": perpage, "title": title, "userID": id}
+    else:
+        data = {"page": page, "perpage": perpage, "userID": id, "title": title, "rating": int(rating)}
 
     # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
     headers = get_headers(without_token = True)

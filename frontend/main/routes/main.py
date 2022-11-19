@@ -36,8 +36,6 @@ def index(jwt = None):
                 page = int(page)
 
     if(request.method == "POST" and (filter_title != "" or filter_author != "" or filter_rating != None)):
-        
-
         # Obtener los poemas.
         resp = func.get_poems_by_fiters(title= filter_title, 
                                         author= filter_author, 
