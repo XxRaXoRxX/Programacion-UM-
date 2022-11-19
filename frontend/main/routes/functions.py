@@ -125,6 +125,17 @@ def put_password(user_id, password):
     headers = get_headers()
 
     return requests.put(api_url, json = data, headers = headers)
+
+def delete_user(user_id, jwt = None):
+    api_url = f'{current_app.config["API_URL"]}/user/{user_id}'
+    
+    # Obtengo el jwt del logueo e instancio headers y le agrego el jwt.
+    if (jwt):
+        headers = get_headers(jwt = jwt)
+    else:
+        headers = get_headers(without_token = True)
+
+    return requests.delete(api_url, headers = headers)
 # -- User --
 
 # -- Marks --

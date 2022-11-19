@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, redirect, url_for, render_template, request
+from flask import Blueprint, current_app, redirect, url_for, render_template, request, make_response
 from . import functions as func
 from . import auth as auth
 import requests
@@ -121,8 +121,24 @@ def edit():
     return redirect(url_for('main.login'))
 
 # Eliminar cuenta del usuario
-@my.route('/delete')
+@my.route('/delete', methods=['GET', 'POST'])
 def delete():
+
+    jwt = func.get_jwt()
+
+    if (jwt):
+
+        if(request.method == "POST"):
+        
+            user = auth.load_user(jwt)
+
+            resp = func.delete_user(user_id = user["id"], jwt = jwt)
+
+            if (resp.ok):
+                return make_response(redirect(url_for('main.logout')))
+            else:
+                return render_template('delete_account.html', error = "Error al eliminar el usuario")
+
     return render_template('delete_account.html')
 
 # Cambiar contraseña del usuario
@@ -139,8 +155,6 @@ def password():
             # Obtener datos del usuario
             user = auth.load_user(jwt)
             email = user["email"]
-
-            print(email, actual_pass)
 
             if email != "" and actual_pass != "":
                 response = func.login(email, actual_pass)

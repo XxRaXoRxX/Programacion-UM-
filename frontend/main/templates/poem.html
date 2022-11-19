@@ -23,10 +23,13 @@
 
 		<!-- Autor -->
 		<div class="col-sm-3">
-			<p class = "tituloPoema float-start" style="font-size: 50px;">
-				Autor: {{poem.user.name}}
-			</p>
+			<form method="POST" action="{{url_for('main.index')}}">
+				<input type="hidden" name="filter_title" id="methodCall" value="">
+				<input type="hidden" name="filter_author" id="methodCall" value="{{poem.user.name}}">
+				<button type="submit" class="btn btn-link titulo_poema" style="font-size: 50px;">{{poem.user.name}}</button>
+			</form>
 		</div>
+		
 
 		<!-- Boton DELETE -->
 		{% if user.rol == "user" and user.id == poem.user.id or user.rol == "admin" %}

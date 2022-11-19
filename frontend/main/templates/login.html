@@ -82,11 +82,11 @@
 		<div class="container">
 			{% if error %}
 				<div class="alert alert-danger">
-					<strong>Contraseña ingresada Incorrecta!</strong>
+					<strong>{{error}}</strong>
 				</div>
 			{% elif success %}
 				<div class="alert alert-success">
-					<strong>Cuenta creada con exito!</strong>
+					<strong>{{success}}</strong>
 				</div>
 			{% endif %}
 		</div>

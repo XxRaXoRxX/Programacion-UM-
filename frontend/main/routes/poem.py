@@ -27,7 +27,7 @@ def view(id):
                     return redirect(url_for('main.index'))
                 else:
                     # TODO: Mostrar error.
-                    return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al eliminar el poema.")
+                    return render_template("delete_poem.html", jwt = jwt, poem = poem, error = "Error al eliminar el poema.")
             else:
                 return render_template("delete_poem.html", jwt = jwt, poem = poem)
             
