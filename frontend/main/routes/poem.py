@@ -27,9 +27,13 @@ def view(id):
                     return redirect(url_for('main.index'))
                 else:
                     # TODO: Mostrar error.
-                    return render_template("delete_poem.html", jwt = jwt, poem = poem, error = "Error al eliminar el poema.")
+                    resp = make_response(render_template("delete_poem.html", jwt = jwt, poem = poem, error = "Error al eliminar el poema."))
+                    func.reset_page_cookie(resp)
+                    return resp
             else:
-                return render_template("delete_poem.html", jwt = jwt, poem = poem)
+                resp = make_response(render_template("delete_poem.html", jwt = jwt, poem = poem))
+                func.reset_page_cookie(resp)
+                return resp
             
 
     # Postear comentario.
@@ -43,14 +47,20 @@ def view(id):
             poem, marks = get_poem_and_marks(poem_id = id, jwt = jwt)
 
             if (resp.ok):
-                return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, success = "Comentario publicado con éxito.")
+                resp = make_response(render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, success = "Comentario publicado con éxito."))
+                func.reset_page_cookie(resp)
+                return resp
             else:
                 # TODO: Mostrar error.
-                return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario.")
+                resp = make_response(render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario."))
+                func.reset_page_cookie(resp)
+                return resp
 
     else:
         poem, marks = get_poem_and_marks(id, jwt = jwt)
-        return render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks)
+        resp = make_response(render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks))
+        func.reset_page_cookie(resp)
+        return resp
 
     return redirect(url_for('main.login'))
 
@@ -90,10 +100,14 @@ def create():
                     return make_response(redirect(url_for('poem.view', id=id)))
             
             # TODO: Mostrar mensaje de error al crear poema.
-            return render_template("create_poem.html", jwt = jwt)
+            resp = make_response(render_template("create_poem.html", jwt = jwt, error = "Error al crear el poema."))
+            func.reset_page_cookie(resp)
+            return resp
     else:
         if (jwt):
-            return render_template('create_poem.html', jwt = jwt)
+            resp = make_response(render_template('create_poem.html', jwt = jwt))
+            func.reset_page_cookie(resp)
+            return resp
 
     return redirect(url_for('main.login'))
 
@@ -119,12 +133,16 @@ def edit(id):
                     # TODO: Mostrar mensaje de error al crear poema.
                     poem = func.get_poem(id, jwt)
                     poem = func.get_json(poem)
-                    return render_template("edit_poem.html", jwt = jwt, poem = poem, error = "Error al editar el poema.")
+                    resp = make_response(render_template("edit_poem.html", jwt = jwt, poem = poem, error = "Error al editar el poema."))
+                    func.reset_page_cookie(resp)
+                    return resp
 
     else:
         poem = func.get_poem(id, jwt)
         poem = func.get_json(poem)
         print(poem)
-        return render_template('edit_poem.html', jwt = jwt, poem = poem)
+        resp = make_response(render_template('edit_poem.html', jwt = jwt, poem = poem))
+        func.reset_page_cookie(resp)
+        return resp
 
     return redirect(url_for('main.login'))

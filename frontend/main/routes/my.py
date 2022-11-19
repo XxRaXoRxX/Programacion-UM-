@@ -20,9 +20,13 @@ def index():
         user_info = func.get_user_info(user["id"])
         user_info = json.loads(user_info.text)
 
-        return render_template('user_info.html', jwt = jwt, user_info = user_info)
+        resp = make_response(render_template('user_info.html', jwt = jwt, user_info = user_info))
+        func.reset_page_cookie(resp)
+        return resp
     else:
-        return redirect(url_for('main.login'))
+        resp = make_response(redirect(url_for('main.login')))
+        func.reset_page_cookie(resp)
+        return resp
 
 # Ver poemas del usuario
 @my.route('/poems', methods=['GET', 'POST'])
@@ -62,20 +66,24 @@ def poems():
                                         page = page)
 
         else:
-            resp = func.get_poems_by_id(id = user["id"], page = page)
+            resp = func.get_poems_by_id(id = user["id"], page = int(page))
 
         # Guardamos los poemas en una variable.
         poems = json.loads(resp.text)
         poemsList = poems["poems"]
 
-        return render_template('user_poems.html', 
-                                jwt = jwt, 
-                                poems = poemsList, 
-                                page = page,
-                                filter_title = filter_title,
-                                filter_rating = filter_rating)
+        resp = make_response(render_template('user_poems.html', 
+                                              jwt = jwt, 
+                                              poems = poemsList, 
+                                              page = page,
+                                              filter_title = filter_title,
+                                              filter_rating = filter_rating))
+        resp.set_cookie("poems_page", str(page))
+        return resp
     else:
-        return redirect(url_for('main.login'))
+        resp = make_response(redirect(url_for('main.login')))
+        func.reset_page_cookie(resp)
+        return resp
 
 # Editar usuario
 @my.route('/edit', methods=['GET', 'POST'])
@@ -99,15 +107,21 @@ def edit():
                 user_info = json.loads(user_info.text)
 
                 if (resp.ok):
-                    return render_template('user_config.html', jwt = jwt, user = user_info, success = "Nombre de usuario cambiado correctamente")
+                    resp = make_response(render_template('user_config.html', jwt = jwt, user = user_info, success = "Nombre de usuario cambiado correctamente"))
+                    func.reset_page_cookie(resp)
+                    return resp
                 else:
-                    return render_template('user_config.html', jwt = jwt, user = user_info, error = "No se ha podido cambiar el nombre de usuario")
+                    resp = make_response(render_template('user_config.html', jwt = jwt, user = user_info, error = "No se ha podido cambiar el nombre de usuario"))
+                    func.reset_page_cookie(resp)
+                    return resp
             else:
                 # Guardamos la información de usuario en una variable.
                 user_info = func.get_user_info(user["id"])
                 user_info = json.loads(user_info.text)
 
-                return render_template('user_config.html', jwt = jwt, user = user_info, error = "El nombre de usuario no puede estar vacío")       
+                resp = make_response(render_template('user_config.html', jwt = jwt, user = user_info, error = "El nombre de usuario no puede estar vacío")       )
+                func.reset_page_cookie(resp)
+                return resp
     else:   
         if (jwt):
             user = auth.load_user(jwt)
@@ -116,7 +130,9 @@ def edit():
             user_info = func.get_user_info(user["id"])
             user_info = json.loads(user_info.text)
 
-            return render_template('user_config.html', jwt = jwt, user = user_info)
+            resp = make_response(render_template('user_config.html', jwt = jwt, user = user_info))
+            func.reset_page_cookie(resp)
+            return resp
     
     return redirect(url_for('main.login'))
 
@@ -137,9 +153,13 @@ def delete():
             if (resp.ok):
                 return make_response(redirect(url_for('main.logout')))
             else:
-                return render_template('delete_account.html', error = "Error al eliminar el usuario")
+                resp = make_response(render_template('delete_account.html', error = "Error al eliminar el usuario"))
+                func.reset_page_cookie(resp)
+                return resp
 
-    return render_template('delete_account.html')
+    resp = make_response(render_template('delete_account.html'))
+    func.reset_page_cookie(resp)
+    return resp
 
 # Cambiar contraseña del usuario
 @my.route('/password', methods=['GET', 'POST'])
@@ -164,11 +184,17 @@ def password():
                     resp = func.put_password(user["id"], new_pass)
 
                     if (resp.ok):
-                        return render_template('change_password.html', jwt = jwt, success = "Contraseña cambiada correctamente")
-                
-            return render_template('change_password.html', jwt = jwt, error = "No se ha podido cambiar la contraseña")
+                        resp = make_response(render_template('change_password.html', jwt = jwt, success = "Contraseña cambiada correctamente"))
+                        func.reset_page_cookie(resp)
+                        return resp
+
+            resp = make_response(render_template('change_password.html', jwt = jwt, error = "No se ha podido cambiar la contraseña"))
+            func.reset_page_cookie(resp) 
+            return resp
     else:
         if (jwt):
-            return render_template('change_password.html', jwt = jwt)
+            resp = make_response(render_template('change_password.html', jwt = jwt))
+            func.reset_page_cookie(resp)
+            return resp
     
     return redirect(url_for('main.login'))

@@ -203,3 +203,8 @@ def get_jwt():
         return token
 # -- Auth --
 
+# -- Page --
+def reset_page_cookie(response):
+    response.set_cookie("poems_page", str(1))
+# -- Page --
+

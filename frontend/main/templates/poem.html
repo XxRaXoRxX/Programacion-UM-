@@ -69,12 +69,10 @@
 	<div class="row text-center">
 		<!-- Cuerpo del Poema -->
 		<div class="col-sm-8">
-			<div class="container cuerpoBox cuerpoPoema text-start float-start">
-				<p>
-					{{poem.body}}
-				</p>
+			<div class="container text-start float-start">
+				<textarea class="form-control-lg text-start contenidoConfig float-start" type="text" name="cuerpo_poema" id="exampleFormControlTextarea1" rows="10" disabled>{{poem.body}}</textarea>
 				<div class="bottom-left container">
-					<img class = "estrellaComentarios " src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
+					<img class = "estrellaComentarios" src="{{url_for('static', filename='img/star.png')}}" alt="Calificación">
 					<div class="centeredComments calificacionMenu"> {{poem.marksAvrg}} </div>
 				</div>
 			</div>

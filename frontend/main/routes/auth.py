@@ -32,3 +32,6 @@ def check_jwt_expiration(token):
     # Token Invalido
     except jwt.InvalidSignatureError:
         return True
+    # Token Nulo
+    except jwt.DecodeError:
+        return True

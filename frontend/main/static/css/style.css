@@ -35,8 +35,8 @@
 
 .estrellaComentarios
 {
-	min-height:5%;
-	min-width:5%;
+	min-height:10%;
+	min-width:10%;
 	max-height:15%;
 	max-width:15%
 }
@@ -376,7 +376,7 @@
 {
 	position: absolute;
 	bottom: -1%;
-	left: 43%;
+	left: 42%;
 }
 
 .bottom-left-user-mark 

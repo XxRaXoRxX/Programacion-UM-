@@ -83,10 +83,13 @@ def login():
                 return resp
 
         # TODO: Mostrar mensaje de error de logueo.
-        return render_template("login.html", error = "Usuario y contraseña incorrectos")
+        resp = make_response(render_template("login.html", error = "Usuario y contraseña incorrectos"))
+        func.reset_page_cookie(resp)
+        return resp
     else:
-        return render_template("login.html")
-
+        resp = make_response(render_template("login.html"))
+        func.reset_page_cookie(resp)
+        return resp
 # Ruta menu principal con poemas
 @main.route('/register', methods=['GET', 'POST'])
 def register():
@@ -101,13 +104,18 @@ def register():
             
             if (response.ok):
                 # Lo manda a la pagina del login.
-                resp = render_template("login.html", success = "Usuario registrado correctamente")
+                resp = make_response(render_template("login.html", success = "Usuario registrado correctamente"))
+                func.reset_page_cookie(resp)
                 return resp
 
         # TODO: Mostrar mensaje de error de logueo.
-        return render_template("register.html", error = "Datos ingresados incorrectos")
+        resp = make_response(render_template("register.html", error = "Datos ingresados incorrectos"))
+        func.reset_page_cookie(resp)
+        return resp
     else:
-        return render_template("register.html")
+        resp = make_response(render_template("register.html"))
+        func.reset_page_cookie(resp)
+        return resp
 
 @main.route('/logout')
 def logout():
