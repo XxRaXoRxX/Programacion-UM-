@@ -15,6 +15,8 @@ class Poem(db.Model):
 
     # Relación
     user = db.relationship("User", back_populates="poems", uselist=False, single_parent=True)
+
+    # Cuando eliminas el poema, que te elimine todas las calificaciónes con delete-orphan.
     marks = db.relationship("Mark", back_populates="poem", cascade="all, delete-orphan")
 
     # Debuger, mostrar contenido de la tabla.

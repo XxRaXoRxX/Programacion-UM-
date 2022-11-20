@@ -4,17 +4,22 @@ from . import functions as func
 import requests
 import json
 
+'''
+    Este archivo contiene las rutas del frontend del menu.
+'''
+
 #Crear Blueprint
 main = Blueprint('main', __name__, url_prefix='/')
 
 # Ruta menu principal con poemas
+# El metodo Delete y Put no existe en html, funciona solo en html5, solo funciona en http, utilizado en REST, como base de datos, entre otros.
 @main.route('/', methods=['GET', 'POST'])
 def index(jwt = None):
 
     if (jwt == None):
         jwt = func.get_jwt()
 
-    # Filtros
+    # Obtener valores del formulario en html
     filter_title = request.form.get("filter_title")
     filter_author = request.form.get("filter_author")
     filter_rating = request.form.get("filter_rating")
@@ -60,7 +65,7 @@ def index(jwt = None):
     resp.set_cookie("poems_page", str(page))
     return resp
 
-# Ruta menu principal con poemas
+# Ruta logueo del usuario
 @main.route('/login', methods=['GET', 'POST'])
 def login():
     if(request.method == "POST"):
@@ -90,7 +95,8 @@ def login():
         resp = make_response(render_template("login.html"))
         func.reset_page_cookie(resp)
         return resp
-# Ruta menu principal con poemas
+
+# Ruta del registro del usuario
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     if(request.method == "POST"):
@@ -117,6 +123,7 @@ def register():
         func.reset_page_cookie(resp)
         return resp
 
+# Ruta desloguearse.
 @main.route('/logout')
 def logout():
     resp = make_response(redirect('login'))

@@ -3,6 +3,8 @@ from .. import db
 from main.models import UserModel
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 
+## Funciones de logueo y registro del usuario ##
+
 #Blueprint para acceder a los métodos de autenticación
 auth = Blueprint('auth', __name__, url_prefix='/auth')
 

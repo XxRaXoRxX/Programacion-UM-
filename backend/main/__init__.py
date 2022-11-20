@@ -8,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_jwt_extended import JWTManager
 from flask_mail import Mail
 
-#Inicializar flask
+#Inicializar api flask-restful
 api = Api()
 
 #inicializar la base de datos
@@ -25,29 +25,30 @@ def create_app():
     #inicializar Flask
     app = Flask(__name__)
 
-    #cargamos variables de archivo .env
+    # Cargamos variables de archivo .env
     load_dotenv()
 
-    # Data Base
-    #Si no existe el archivo de base de datos crearlo (solo válido si se utiliza SQLite)
+    # --- Data Base ---
+    # Si no existe el archivo de base de datos crearlo (solo válido si se utiliza SQLite)
     print(os.getenv('DATABASE_PATH'))
     if not os.path.exists(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')):
         os.mknod(os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME'))
 
     # Esto es para evitar que la base de datos trackee los cambios
-    #app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    # Si le ponemos que sea True esto puede llegar a sobrecargar el ordenador ya que los cambios se van a hacer en tiempo real.
 
     # Url de configuración de base de datos. Solo funcional para SQLite.
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////'+os.getenv('DATABASE_PATH')+os.getenv('DATABASE_NAME')
 
     # Iniciamos la base de datos.
     db.init_app(app)
-    # Data Base
+    # --- Data Base ---
 
     #Importamos main.resources luego de crear la base de datos.
     import main.resources as resource
     
-    #Cargar variables de entorno
+    # Cargar variables de entorno o diccionario de recursos.
     api.add_resource(resource.PoemsResource, '/poems')
     api.add_resource(resource.PoemResource, '/poem/<id>')
     api.add_resource(resource.UsersResource, '/users')
@@ -66,9 +67,9 @@ def create_app():
     #Iniciar el JWT
     jwt.init_app(app)
 
-    #Importamos main.resources luego de crear la base de datos.
     from main.auth import routes
-    #Importar Blueprint
+
+    #Importar Blueprint del logueo y registro del usuario.
     app.register_blueprint(routes.auth)
     
     #Configuración de mail
@@ -79,6 +80,7 @@ def create_app():
     app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
     app.config['FLASKY_MAIL_SENDER'] = os.getenv('FLASKY_MAIL_SENDER')
+    
     #Inicializar el mail en app
     mailsender.init_app(app)
     

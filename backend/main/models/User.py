@@ -11,20 +11,22 @@ class User(db.Model):
     email = db.Column(db.String(100), unique = True, index = True, nullable=False) #unique sirve para que no haya duplicados en la db.
 
     # Relaciones
+    # Cuando eliminas un usuario, que te elimine todos los poemas con delete-orphan.
     poems = db.relationship("Poem", back_populates="user", cascade="all, delete-orphan")
+    # Cuando eliminas un usuario, que te elimine todas las calificaciónes con delete-orphan.
     marks = db.relationship("Mark", back_populates="user", cascade="all, delete-orphan")
 
     # Debuger, mostrar contenido de la tabla.
     def __repr__(self):
-        return f"<Professor: {self.name} {self.password} {self.rol} {self.email} >"
+        return f"<User: {self.name} {self.password} {self.rol} {self.email} >"
 
     @property #En caso de lectura, le de un error.
-    def generate_password(self):
+    def plain_password(self):
         raise AttributeError('Password cant be read')
 
-    #En caso de escritura que genere el hash y lo ingrese a contraseña.
-    def generate_password(self, password):
-        return generate_password_hash(password)
+    @plain_password.setter #En caso de escritura que genere el hash y lo ingrese a contraseña.
+    def plain_password(self, password):
+        self.password = generate_password_hash(password)
 
     #Método que compara una contraseña en texto plano con el hash guardado en la base de datos
     def validate_pass(self,password):
@@ -77,7 +79,7 @@ class User(db.Model):
         email = user_json.get('email')
         return User(id=id,
                     name=name,
-                    password=generate_password_hash(password),
+                    plain_password=password,
                     rol=rol,
                     email=email
                     )

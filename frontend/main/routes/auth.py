@@ -3,6 +3,7 @@ from .. import login_manager
 import jwt
 from flask import current_app
 
+# Utilizado para obtener los claims del token, para poder utilizarlos en el frontend.
 @login_manager.user_loader
 def load_user(token):
     try:
@@ -20,6 +21,7 @@ def load_user(token):
     except jwt.exceptions.DecodeError:
         print('Decode Error')
 
+# Utilizado para checkear si el token del usuario es correcto.
 def check_jwt_expiration(token):
     try:
         header_data = jwt.get_unverified_header(token)

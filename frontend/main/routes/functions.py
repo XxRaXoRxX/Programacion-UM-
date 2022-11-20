@@ -3,6 +3,12 @@ import requests
 import json
 from . import auth
 
+''' 
+    Utilizado para hacer solicitudes de API-REST al backend ##
+    Manejo de los headers
+    Manejo de JWT
+'''
+
 # -- Poems --
 def get_poems_by_id(id, title = "", rating = None, page = 1, perpage = 3):
     api_url = f'{current_app.config["API_URL"]}/poems'

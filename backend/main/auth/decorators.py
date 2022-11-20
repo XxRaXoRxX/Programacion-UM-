@@ -3,7 +3,9 @@ from flask import jsonify
 from flask_jwt_extended import verify_jwt_in_request, get_jwt
 from functools import wraps
 
-#Decorador para restringir el acceso a usuarios admin
+## Utilizado para restringir el acceso a usuarios y admin en los modelos. ##
+
+#Decorador para restringir el acceso a usuarios y admin
 def admin_required(fn):
     @wraps(fn)
     def wrapper(*args, **kwargs):
