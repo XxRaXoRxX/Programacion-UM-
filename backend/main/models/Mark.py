@@ -4,7 +4,7 @@ class Mark(db.Model):
 
     # Generamos las columnas de Usuario
     id = db.Column(db.Integer, primary_key=True)
-    score = db.Column(db.Integer, nullable=False, default=1)
+    score = db.Column(db.Integer, nullable=False)
     comment = db.Column(db.String(100), nullable=True)
 
     # Crear Clave Foranea 

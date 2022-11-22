@@ -52,7 +52,7 @@ def view(id):
                 return resp
             else:
                 # TODO: Mostrar error.
-                resp = make_response(render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario."))
+                resp = make_response(render_template('poem.html', jwt = jwt, user = user, poem = poem, marks = marks, error = "Error al publicar el comentario, ingresa puntuación.", comment = comment))
                 func.reset_page_cookie(resp)
                 return resp
 

@@ -88,8 +88,11 @@
 						<div class="container comentarioBox comentariosPoema text-start mt-1">
 
 							<!-- Ingresar Comentario -->
-							<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario"></textarea>
-
+							{% if comment %}
+								<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario">{{comment}}</textarea>
+							{% else %}
+								<textarea class="form-control-sm float-start text-start comentariosPoema mt-2" name="comentario" id="exampleFormControlTextarea1" placeholder="Ingresar Comentario"></textarea>
+							{% endif %}
 							<!-- Boton enviar comentario -->
 							<div class="bottom-left-user-send container">
 								<button type = "submit" class="btn-warning dropdown" type="button" id="dropdownMenuButton" aria-expanded="false">
@@ -130,6 +133,14 @@
 						</div>	
 					
 						{% endif %}
+
+						<div class="container mt-1">
+							{% if error %}
+								<div class="alert alert-danger">
+									<strong>{{error}}</strong>
+								</div>
+							{% endif %}
+						</div>
 						
 						{% for mark in marks %}
 						<!-- Comentario -->
